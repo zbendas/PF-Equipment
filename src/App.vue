@@ -64,16 +64,19 @@
 
 <style lang="sass">
     @import url('https://fonts.googleapis.com/css?family=Montserrat:500')
+    \:root
+        background-color: darkslategray
+
     #app
-        background-color: white
         width: 100vw
         height: 100vw
 
     .app-body
+        background-color: white
         margin: 5vh 20vw
 
     .search-box
-        width: 100%
+        width: calc(100% - 8px)
         height: 2em
         background: #333333
         border: none

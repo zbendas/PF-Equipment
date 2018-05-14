@@ -11,13 +11,25 @@
                 Type: {{ item.item_type }}
                 Cost: {{ item.cost ? item.cost : "—" }}
             </div>
-            Damage (S)/(M): {{ item.damage_small ? item.damage_small : "—" }} / {{ item.damage_medium ?
-            item.damage_medium : "—" }}
-            Critical: {{ item.critical_range ? item.critical_range + "/" : "" }}{{ "×" + item.critical_multiplier }}
-            Range: {{ item.range ? item.range : "—" }}
-            Weight: {{ item.weight ? item.weight : "—" }}
-            Damage Type: {{ item.damage_type }}
-            Special: {{ item.special ? item.special : "—" }}
+            <div>
+                Damage (S/M): {{ item.damage_small ? item.damage_small : "—" }} / {{ item.damage_medium ?
+                item.damage_medium : "—" }}
+            </div>
+            <div>
+                Critical: {{ item.critical_range ? item.critical_range + "/" : "" }}{{ "×" + item.critical_multiplier }}
+            </div>
+            <div>
+                Range: {{ item.range ? item.range : "—" }}
+            </div>
+            <div>
+                Weight: {{ item.weight ? item.weight : "—" }}
+            </div>
+            <div>
+                Damage Type: {{ item.damage_type.join(', ') }}
+            </div>
+            <div>
+                Special: {{ item.special ? item.special.join(', ') : "—" }}
+            </div>
         </div>
     </div>
 </template>
@@ -51,6 +63,8 @@
         font-family: Montserrat, sans-serif
         font-weight: 500
         font-size: 1.5em
+        padding: 5px
+        border-bottom: solid 1px lightgray
         .equipment_info
             font-family: sans-serif
             font-weight: normal
