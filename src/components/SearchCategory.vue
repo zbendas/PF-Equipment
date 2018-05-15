@@ -32,7 +32,6 @@
         },
         methods: {
             prepareFilter: function () {
-                console.log(`prepareFilter(${this.category_key}, [${this.checkedItems.join(', ')}])`);
                 this.$emit('prepared-filter', this.category_key, this.checkedItems);
             },
         }
@@ -48,9 +47,6 @@
         font-size: 0.75em
         width: 50%
         background: transparent
-        border: solid darkgray 1px
-    input[type="checkbox"]:checked
-        background: darkblue
         border: solid darkgray 1px
 
 </style>

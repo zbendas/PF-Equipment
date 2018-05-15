@@ -355,7 +355,6 @@
                 }
             },
             setFilter: function (category_key, checkedItems) {
-                console.log(`setFilter(${category_key}, [${checkedItems.join(', ')}])`);
                 this.current_filter[category_key] = checkedItems;
             },
         }
@@ -363,7 +362,7 @@
 </script>
 
 <style lang="sass">
-    @import url('https://fonts.googleapis.com/css?family=Lato|Montserrat:500')
+    @import url('https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:500')
 
     \:root
         background-color: #141414
