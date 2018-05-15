@@ -7,11 +7,17 @@
                    v-on:focus="collapseAll"
             />
         </form>
+        <search-settings v-bind:category_name="category_name"
+                         v-bind:category_items="item_categories"
+                         v-bind:category_key="'item_type'"
+                         v-on:apply-filter="setFilter"
+        />
         <equipment-result v-for="item in items" :key="item.name"
                           v-bind:item="item"
-                          v-bind:filter="search_text"
+                          v-bind:search_text="search_text"
+                          v-bind:current_filter="current_filter"
                           v-bind:expanded="expanded_equipment[item.name]"
-                          v-on:show-equipment="(key) => { expanded_equipment[key] = !expanded_equipment[key] }"
+                          v-on:expand-equipment="(key) => { expanded_equipment[key] = !expanded_equipment[key] }"
         />
     </div>
 </template>
@@ -36,13 +42,26 @@
      */
 
     import EquipmentResult from "./components/EquipmentResult.vue"
+    import SearchSettings from "./components/SearchSettings";
 
     export default {
         name: "app",
         components: {
+            SearchSettings,
             EquipmentResult,
         },
-        computed: {},
+        computed: {
+            item_categories: function () {
+                let category_array = [];
+                this.items.forEach((value) => {
+                        category_array.push(value.item_type)
+                });
+                category_array = category_array.filter((item, index) => {
+                    return category_array.indexOf(item) === index;
+                });
+                return category_array;
+            }
+        },
         data: function () {
             return {
                 /**
@@ -320,15 +339,25 @@
                     "Sling": false,
                     "Bullets, sling": false
                 },
-                search_text: ""
+                category_name: "Item Type",
+                search_text: "",
+                current_filter: {
+                    "item_type": [],
+                    "damage_type": [],
+                }
             }
         },
         methods: {
             collapseAll: function () {
-                for(let key in this.expanded_equipment){
+                for (let key in this.expanded_equipment) {
+                    // noinspection JSUnfilteredForInLoop
                     this.expanded_equipment[key] = false;
                 }
-            }
+            },
+            setFilter: function (category_key, checkedItems) {
+                console.log(`setFilter(${category_key}, [${checkedItems.join(', ')}])`);
+                this.current_filter[category_key] = checkedItems;
+            },
         }
     };
 </script>
@@ -345,6 +374,7 @@
 
     .app-body
         min-height: 20vh
+        width: 60vw
         background-color: white
         margin: 5vh 20vw
         box-shadow: 25px 25px 19px -1px rgba(0, 0, 0, 0.5)

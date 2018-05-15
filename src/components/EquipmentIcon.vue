@@ -22,6 +22,7 @@
 <style scoped lang="sass">
     .item_icon
         height: 32px
+        user-select: none
     img
         height: 28px
         margin: 4px 10px
