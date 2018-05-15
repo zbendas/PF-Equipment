@@ -29,18 +29,17 @@
         props: {
             item: Object,
             filter: String,
+            expanded: Boolean
         },
         computed: {},
         data: function () {
-            return {
-                expanded: false
-            }
+            return {};
         },
         methods: {
             onHover: function (event) {
             },
             showItem: function (event) {
-                this.expanded ? this.expanded = false : this.expanded = true;
+                this.$emit('show-equipment', this.item.name);
             },
             isShown: function (item, filter) {
                 let re = new RegExp(filter, 'gi');
@@ -60,11 +59,11 @@
         font-family: 'Montserrat', sans-serif
         font-weight: 500
         font-size: 1.5em
-        border-bottom: solid 1px lightgray
         .item_name
             padding: 5px
             user-select: none
     .equipment_result_title
+        border-bottom: solid 1px lightgray
         display: flex
         flex-flow: row nowrap
         justify-content: space-between

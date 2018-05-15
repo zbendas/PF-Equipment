@@ -1,12 +1,17 @@
 <template>
     <div class="app-body">
         <form @submit.prevent>
-            <input class="search-box" type="text" title="Search" aria-label="Search" placeholder="Filter by typing here, e.g.: dagger, gauntlet, longspear"
-                   v-model="search_text"/>
+            <input class="search-box" type="text" title="Search" aria-label="Search"
+                   placeholder="Filter by typing here, e.g.: dagger, gauntlet, longspear"
+                   v-model="search_text"
+                   v-on:focus="collapseAll"
+            />
         </form>
         <equipment-result v-for="item in items" :key="item.name"
                           v-bind:item="item"
                           v-bind:filter="search_text"
+                          v-bind:expanded="expanded_equipment[item.name]"
+                          v-on:show-equipment="(key) => { expanded_equipment[key] = !expanded_equipment[key] }"
         />
     </div>
 </template>
@@ -37,6 +42,7 @@
         components: {
             EquipmentResult,
         },
+        computed: {},
         data: function () {
             return {
                 /**
@@ -289,7 +295,39 @@
                         "weight": "5 lbs."
                     }
                 ],
+                expanded_equipment: {
+                    "Gauntlet": false,
+                    "Unarmed strike": false,
+                    "Dagger": false,
+                    "Dagger, punching": false,
+                    "Gauntlet, spiked": false,
+                    "Mace, light": false,
+                    "Sickle": false,
+                    "Club": false,
+                    "Mace, heavy": false,
+                    "Morningstar": false,
+                    "Shortspear": false,
+                    "Longspear": false,
+                    "Quarterstaff": false,
+                    "Spear": false,
+                    "Blowgun": false,
+                    "Darts, blowgun": false,
+                    "Crossbow, heavy": false,
+                    "Bolts, crossbow": false,
+                    "Crossbow, light": false,
+                    "Dart": false,
+                    "Javelin": false,
+                    "Sling": false,
+                    "Bullets, sling": false
+                },
                 search_text: ""
+            }
+        },
+        methods: {
+            collapseAll: function () {
+                for(let key in this.expanded_equipment){
+                    this.expanded_equipment[key] = false;
+                }
             }
         }
     };
@@ -299,7 +337,7 @@
     @import url('https://fonts.googleapis.com/css?family=Lato|Montserrat:500')
 
     \:root
-        background-color: darkslategray
+        background-color: #141414
 
     #app
         width: 100vw
@@ -313,6 +351,9 @@
         -webkit-box-shadow: 25px 25px 19px -1px rgba(0, 0, 0, 05)
         -moz-box-shadow: 25px 25px 19px -1px rgba(0, 0, 0, 0.5)
 
+    input:focus
+        outline: white auto 5px
+
     .search-box
         width: calc(100% - 8px)
         height: 2em
@@ -322,6 +363,7 @@
         padding: 4px
         &::placeholder
             font-style: italic
+
     .icon-attribution
         color: white
         font-size: 0.75em

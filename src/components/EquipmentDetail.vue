@@ -47,6 +47,7 @@
         display: flex
         flex-flow: column nowrap
         justify-content: space-evenly
+        border-bottom: 3px solid darkgray
 
     .field_label
         font-size: 0.75rem
