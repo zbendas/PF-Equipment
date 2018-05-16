@@ -3,6 +3,7 @@
         <h1 v-show="!collapsed">Filter By:</h1>
         <div class="search_settings" v-show="!collapsed">
             <search-category v-for="category in categories"
+                             :key="category.category_name"
                              v-bind:category_name="category.category_name"
                              v-bind:category_items="category.category_items"
                              v-bind:category_key="category.category_key"

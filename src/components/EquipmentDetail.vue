@@ -6,19 +6,22 @@
             <span v-else><span class="field_label">Cost per {{item.amount}}: </span><span class="field_datum">{{item.cost ? item.cost : "—" }}</span></span>
             <span class="field_label">Weight: </span>{{ computed_weight }}
         </div>
+        <div v-if="item.item_type !== 'Ammunition' && item.hasOwnProperty('amount')">
+            <span class="field_label">Amount: </span>{{ item.amount }}
+        </div>
         <div v-if="item.item_type !== 'Ammunition'">
             <span class="field_label">Damage: </span>
             <span class="damage">{{ item.damage_small ? item.damage_small : "—" }}<sup title="Small">S</sup></span>
             <span class="damage">{{ item.damage_medium ? item.damage_medium : "—" }}<sup title="Medium">M</sup></span>
         </div>
         <div v-if="item.item_type !== 'Ammunition'">
-            <span class="field_label">Critical: </span>{{ item.critical_range ? item.critical_range + "/" : "" }}{{ "×" + item.critical_multiplier }}
+            <span class="field_label">Critical: </span>{{ item.critical_range ? item.critical_range + "/" : "" }}{{ item.critical_multiplier ? "×" + computed_critical : "—" }}
         </div>
         <div v-if="item.item_type !== 'Ammunition'">
             <span class="field_label">Range: </span>{{ item.range ? item.range + " ft." : "—" }}
         </div>
         <div v-if="item.item_type !== 'Ammunition'">
-            <span class="field_label">Damage Type: </span>{{ item.damage_type ? item.damage_type.join(', ') : '' }}
+            <span class="field_label">Damage Type: </span>{{ item.damage_type ? item.damage_type : '—' }}
         </div>
         <div v-if="item.item_type !== 'Ammunition'">
             <span class="field_label">Special: </span>{{ item.special ? item.special.join(', ') : "—" }}
@@ -33,6 +36,13 @@
             computed_weight: function () {
                 let weight = this.item["weight"];
                 return weight === "special" ? weight : (weight ? (weight > 1 ? weight + " lbs." : weight + " lb.") : "—")
+            },
+            computed_critical: function () {
+
+                if (this.item["critical_multiplier"].constructor === Array) {
+                    return this.item["critical_multiplier"].join(' / ×');
+                }
+                return this.item["critical_multiplier"];
             }
         },
         props: {
@@ -63,8 +73,9 @@
 
     .damage
         & + .damage:before
-            opacity: 0.75
+            opacity: 0.5
             content: " / "
+            font-size: 1.25rem
         sup
             font-size: 0.75rem
 
