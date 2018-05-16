@@ -49,14 +49,28 @@
                 }
             },
             isFiltered: function (item, current_filter) {
-                let item_type_flag = false, damage_type_flag = false;
+                let item_type_flag = false, damage_type_flag = false, range_flag = false;
                 if (current_filter["item_type"].includes(item.item_type) || current_filter["item_type"].length === 0) {
                     item_type_flag = true;
                 }
-                if (current_filter["damage_type"].includes(item.damage_type) || current_filter["damage_type"].length === 0) {
+                if (current_filter["damage_type"].length === 0) {
                     damage_type_flag = true;
                 }
-                return item_type_flag && damage_type_flag;
+                else {
+                    // TODO: Implement logic here to filter by damage type
+                    damage_type_flag = true;
+                }
+                if (current_filter["range"].length === 0) {
+                    range_flag = true;
+                }
+                else {
+                    current_filter["range"].forEach((value) => {
+                        if (item.range >= value) {
+                            range_flag = true;
+                        }
+                    });
+                }
+                return item_type_flag && damage_type_flag && range_flag;
             }
         }
     }

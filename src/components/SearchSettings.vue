@@ -2,16 +2,17 @@
     <div class="wrapper">
         <h1 v-show="!collapsed">Filter By:</h1>
         <div class="search_settings" v-show="!collapsed">
-            <search-category v-bind:category_name="category_name"
-                             v-bind:category_items="category_items"
-                             v-bind:category_key="category_key"
+            <search-category v-for="category in categories"
+                             v-bind:category_name="category.category_name"
+                             v-bind:category_items="category.category_items"
+                             v-bind:category_key="category.category_key"
+                             v-bind:additional_label="category.additional_label"
                              v-on:prepared-filter="applyFilter"
             />
         </div>
-        <div class="expander">
+        <div class="expander" v-on:click="toggleCollapsed" >
             <i class="arrow" v-bind:class="!collapsed ? 'up' : 'down' "
                v-bind:title="!collapsed ? 'Click to collapse' : 'Click to expand'"
-               v-on:click="toggleCollapsed"
             ></i>
         </div>
     </div>
@@ -24,9 +25,7 @@
         components: {SearchCategory},
         name: "search-settings",
         props: {
-            category_name: String,
-            category_key: String,
-            category_items: Array
+            categories: Array,
         },
         data() {
             return {
@@ -78,12 +77,17 @@
         margin: 4px 0
 
     .search_settings
+        width: 100%
         display: flex
         flex-flow: row nowrap
         justify-content: center
-        align-items: center
+        align-items: flex-start
 
     .expander
-
+        cursor: pointer
+        width: 100%
+        display: flex
+        flex-flow: column nowrap
+        align-items: center
 
 </style>
