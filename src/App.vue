@@ -219,10 +219,10 @@
         cursor: pointer
         width: 32px
         img
-            height: 28px
+            height: 24px
             position: relative
-            top: 2px
-            left: 2px
+            top: 4px
+            left: 4px
 
     .icon-attribution
         color: white

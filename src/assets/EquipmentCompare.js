@@ -1,3 +1,15 @@
+function nameCompare(a, b) {
+    if (a.name < b.name) {
+        return -1;
+    }
+    else if (a.name > b.name) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
 function equipmentCompare(a, b) {
     if (!a.hasOwnProperty("item_type") || !b.hasOwnProperty("item_type")) {
         throw `{a} cannot be compared to {b}, as one of the two operands does not define property 'item_type'.`;
@@ -5,7 +17,7 @@ function equipmentCompare(a, b) {
     else {
         if (a.item_type === "Unarmed") {
             if (b.item_type === "Unarmed") {
-                return 0;
+                return nameCompare(a, b);
             }
             else {
                 return -1;
@@ -16,7 +28,7 @@ function equipmentCompare(a, b) {
                 return 1;
             }
             else if (b.item_type === "Light") {
-                return 0;
+                return nameCompare(a, b);
             }
             else {
                 return -1;
@@ -27,7 +39,7 @@ function equipmentCompare(a, b) {
                 return 1;
             }
             else if (b.item_type === "One-handed") {
-                return 0;
+                return nameCompare(a, b);
             }
             else {
                 return -1;
@@ -39,7 +51,7 @@ function equipmentCompare(a, b) {
                 return 1;
             }
             else if (b.item_type === "Two-handed") {
-                return 0;
+                return nameCompare(a, b);
             }
             else {
                 return -1;
@@ -51,7 +63,7 @@ function equipmentCompare(a, b) {
                 return 1;
             }
             else if (b.item_type === "Ranged") {
-                return 0;
+                return nameCompare(a, b);
             }
             else {
                 return -1;
@@ -64,7 +76,7 @@ function equipmentCompare(a, b) {
                 return 1;
             }
             else if (b.item_type === "Ammunition") {
-                return 0;
+                return nameCompare(a, b);
             }
             else {
                 return -1;
