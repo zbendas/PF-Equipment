@@ -11,7 +11,9 @@
             </div>
             <equipment-icon v-bind:item_type="item.item_type"/>
         </div>
-        <equipment-detail v-bind:item="item" v-bind:expanded="expanded"/>
+        <transition name="grow">
+            <equipment-detail v-show="expanded" v-bind:item="item"/>
+        </transition>
     </div>
 </template>
 
@@ -88,6 +90,8 @@
 </script>
 
 <style scoped lang="sass">
+    @import ../assets/variables
+
     .equipment_result
         font-family: 'Montserrat', sans-serif
         font-weight: 500
@@ -101,4 +105,13 @@
             flex-flow: row nowrap
             justify-content: space-between
             align-items: center
+
+    .grow-enter-active, .grow-leave-active
+        overflow: hidden
+        max-height: 600px
+        +transition(max-height 0.25s ease-out)
+
+    .grow-enter, .grow-leave-to
+        max-height: 0
+
 </style>

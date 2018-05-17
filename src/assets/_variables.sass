@@ -11,3 +11,11 @@ $one-handed: #73AFEF
 $two-handed: #E58B8B
 $ranged: #E0BADE
 $ammunition: lighten($ranged, 10%)
+
+// Mixins
+=transition($args...)
+  -webkit-transition: $args
+  -moz-transition: $args
+  -ms-transition: $args
+  -o-transition: $args
+  transition: $args

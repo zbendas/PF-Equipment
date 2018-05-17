@@ -1,5 +1,5 @@
 <template xmlns="http://www.w3.org/1999/html">
-    <div class="equipment_info" v-show="expanded" v-bind:class="[item.item_type.toLowerCase(), expanded]">
+    <div class="equipment_info" v-bind:class="item.item_type.toLowerCase()">
         <div>
             <span class="field_label">Type: </span><span class="field_datum">{{ item.item_type }}</span>
             <span v-if="item.item_type !== 'Ammunition'"><span class="field_label">Cost: </span><span class="field_datum">{{ item.cost ? item.cost : "—" }}</span></span>
@@ -47,7 +47,6 @@
         },
         props: {
             item: Object,
-            expanded: Boolean,
         }
     }
 </script>
