@@ -3,6 +3,7 @@
         <form @submit.prevent>
             <div class="category_name">{{ category_name }}</div>
             <div v-for="(item, key) in category_items" :key="item + key.toString()">
+                <!--suppress HtmlFormInputWithoutLabel -->
                 <input type="checkbox"
                        :title="item" :aria-label="item + ' checkbox'"
                        :id="item"
