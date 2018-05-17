@@ -24,11 +24,18 @@
             "category_name": String,
             "category_key": String,
             "category_items": Array,
-            "additional_label": String
+            "additional_label": String,
+            "reset": Boolean
         },
         data() {
             return {
                 checkedItems: []
+            }
+        },
+        watch:{
+            reset: function () {
+                this.checkedItems = [];
+                this.$emit('reset-complete', this.category_key);
             }
         },
         methods: {

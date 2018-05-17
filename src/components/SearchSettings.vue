@@ -8,9 +8,16 @@
                              v-bind:category_items="category.category_items"
                              v-bind:category_key="category.category_key"
                              v-bind:additional_label="category.additional_label"
+                             v-bind:reset="category.reset"
                              v-on:prepared-filter="applyFilter"
+                             v-on:reset-complete="bubbleUpResetComplete"
             />
         </div>
+        <input type="button" @click.prevent
+               v-on:click="$emit('clear-filters')"
+               v-show="!collapsed"
+               value="Reset All"
+        />
         <div class="expander" v-on:click="toggleCollapsed" >
             <i class="arrow" v-bind:class="!collapsed ? 'up' : 'down' "
                v-bind:title="!collapsed ? 'Click to collapse' : 'Click to expand'"
@@ -39,6 +46,9 @@
             },
             toggleCollapsed: function () {
                 this.collapsed = !this.collapsed;
+            },
+            bubbleUpResetComplete: function (category_key) {
+                this.$emit('reset-complete', category_key);
             }
         }
     }
@@ -90,5 +100,11 @@
         display: flex
         flex-flow: column nowrap
         align-items: center
+
+    input[type="button"]
+        font-size: 0.75em
+        background: transparent
+        border: solid darkgray 1px
+        cursor: pointer
 
 </style>

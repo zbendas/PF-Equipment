@@ -1,3 +1,22 @@
+/**
+ * An item object, containing various different properties
+ * @typedef {Object} ItemObject
+ * @property {string} item_type - Item category
+ * @property {string} classification - Simple, Martial, Exotic, etc.
+ * @property {string} name - Item name, as listed in PRD
+ * @property {string} [alt_name] - Item name, alternate
+ * @property {string} [cost] - Item cost, as listed
+ * @property {string} [amount] - Amount per cost
+ * @property {string} [damage_small] - Damage dealt when wielded by Small character
+ * @property {string} [damage_medium] - Damage dealt when wielded by Medium character
+ * @property {string} [critical_range] - Critical threat range
+ * @property {number} [critical_multiplier] - Critical damage multiplier
+ * @property {number} [range] - Range of weapon, as a number. 'ft.' will be appended where appropriate.
+ * @property {number|string} [weight] - Weight of weapon, as a number. 'lb.' or 'lbs.' will be appended where appropriate.
+ * @property {string} [damage_type] - String describing the type of damage dealt
+ * @property {Array.<string>} [special] - Array containing special qualities of the weapon
+ */
+
 export default [
     // ****
     // SIMPLE WEAPONS

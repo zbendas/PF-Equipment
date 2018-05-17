@@ -10,6 +10,9 @@
         <search-settings
                 v-bind:categories="categories"
                 v-on:apply-filter="setFilter"
+                v-on:clear-filters="clearFilter"
+                v-on:reset-complete="clearResetFlags"
+
         />
         <equipment-result
                 v-for="item in items" :key="item.name"
@@ -24,24 +27,6 @@
 
 <!--suppress JSUnusedGlobalSymbols -->
 <script>
-    /**
-     * An item object, containing various different properties
-     * @typedef {Object} ItemObject
-     * @property {string} item_type - Item category
-     * @property {string} classification - Simple, Martial, Exotic, etc.
-     * @property {string} name - Item name, as listed in PRD
-     * @property {string} [alt_name] - Item name, alternate
-     * @property {string} [cost] - Item cost, as listed
-     * @property {string} [amount] - Amount per cost
-     * @property {string} [damage_small] - Damage dealt when wielded by Small character
-     * @property {string} [damage_medium] - Damage dealt when wielded by Medium character
-     * @property {string} [critical_range] - Critical threat range
-     * @property {number} [critical_multiplier] - Critical damage multiplier
-     * @property {number} [range] - Range of weapon, as a number. 'ft.' will be appended where appropriate.
-     * @property {number|string} [weight] - Weight of weapon, as a number. 'lb.' or 'lbs.' will be appended where appropriate.
-     * @property {string} [damage_type] - String describing the type of damage dealt
-     * @property {Array.<string>} [special] - Array containing special qualities of the weapon
-     */
 
     import EquipmentResult from "./components/EquipmentResult.vue";
     import SearchSettings from "./components/SearchSettings.vue";
@@ -54,28 +39,32 @@
             EquipmentResult,
         },
         computed: {
-            categories: function () {
+            categories_func: function () {
                 return [
                     {
                         "category_name": "Classification",
                         "category_key": "classification",
-                        "category_items": this.classification_categories
+                        "category_items": this.classification_categories,
+                        "reset": false
                     },
                     {
                         "category_name": "Item Type",
                         "category_key": "item_type",
-                        "category_items": this.item_categories
+                        "category_items": this.item_categories,
+                        "reset": false
                     },
                     {
                         "category_name": "Damage Type",
                         "category_key": "damage_type",
-                        "category_items": this.damage_categories
+                        "category_items": this.damage_categories,
+                        "reset": false
                     },
                     {
                         "category_name": "Range (≥)",
                         "category_key": "range",
                         "category_items": this.range_categories,
-                        "additional_label": "ft."
+                        "additional_label": "ft.",
+                        "reset": false
                     }
                 ];
             },
@@ -112,9 +101,11 @@
             // the data version of expanded_equipment to be equal to the dynamically computed object
             this.expanded_equipment = this.expanded_equipment_func;
             // TODO: Add sort function to alphabetically sort items
+            this.categories = this.categories_func;
         },
         data: function () {
             return {
+                categories: [],
                 damage_categories: [
                     "B",
                     "P",
@@ -147,6 +138,21 @@
             setFilter: function (category_key, checkedItems) {
                 this.current_filter[category_key] = checkedItems;
             },
+            clearFilter: function () {
+                for (let key in this.current_filter) {
+                    this.current_filter[key] = [];
+                }
+                for (let index in this.categories) {
+                   this.categories[index]["reset"] = true;
+                }
+            },
+            clearResetFlags: function (category_key) {
+                for (let index in this.categories) {
+                    if (this.categories[index]["category_key"] === category_key){
+                        this.categories[index]["reset"] = false;
+                    }
+                }
+            }
         }
     };
 </script>
