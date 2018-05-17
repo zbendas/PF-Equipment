@@ -1,11 +1,20 @@
 <template>
     <div class="app-body">
         <form @submit.prevent>
-            <input class="search-box" type="text" title="Search" aria-label="Search"
-                   placeholder="Search by typing here, e.g.: dagger, gauntlet, longspear"
-                   v-model="search_text"
-                   v-on:focus="collapseAll"
-            />
+            <div class="search search-container">
+                <input class="search search-box" type="text" title="Search" aria-label="Search"
+                       placeholder="Search by typing here, e.g.: dagger, gauntlet, longspear"
+                       v-model="search_text"
+                       v-on:focus="collapseAll"
+                />
+                <div class="search clear-button" v-on:click="search_text = ''">
+                    <img src="./assets/icons/closed.svg"
+                         @dragstart.prevent
+                         aria-label="Clear search field"
+                         title="Clear"
+                    />
+                </div>
+            </div>
         </form>
         <search-settings
                 v-bind:categories="categories"
@@ -31,6 +40,7 @@
     import EquipmentResult from "./components/EquipmentResult.vue";
     import SearchSettings from "./components/SearchSettings.vue";
     import ItemDataSet from "./assets/item_data.js";
+    import equipmentCompare from "./assets/EquipmentCompare.js";
 
     export default {
         name: "app",
@@ -106,6 +116,12 @@
         data: function () {
             return {
                 categories: [],
+                current_filter: {
+                    "classification": [],
+                    "item_type": [],
+                    "damage_type": [],
+                    "range": []
+                },
                 damage_categories: [
                     "B",
                     "P",
@@ -115,13 +131,7 @@
                 /**
                  * @type Array.<ItemObject> items - Array of ItemObjects
                  */
-                items: ItemDataSet,
-                current_filter: {
-                    "classification": [],
-                    "item_type": [],
-                    "damage_type": [],
-                    "range": []
-                },
+                items: ItemDataSet.sort(equipmentCompare),
                 range_categories: [
                     10, 20, 30, 40, 50, 100
                 ],
@@ -135,23 +145,23 @@
                     this.expanded_equipment[key] = false;
                 }
             },
-            setFilter: function (category_key, checkedItems) {
-                this.current_filter[category_key] = checkedItems;
-            },
             clearFilter: function () {
                 for (let key in this.current_filter) {
                     this.current_filter[key] = [];
                 }
                 for (let index in this.categories) {
-                   this.categories[index]["reset"] = true;
+                    this.categories[index]["reset"] = true;
                 }
             },
             clearResetFlags: function (category_key) {
                 for (let index in this.categories) {
-                    if (this.categories[index]["category_key"] === category_key){
+                    if (this.categories[index]["category_key"] === category_key) {
                         this.categories[index]["reset"] = false;
                     }
                 }
+            },
+            setFilter: function (category_key, checkedItems) {
+                this.current_filter[category_key] = checkedItems;
             }
         }
     };
@@ -159,9 +169,10 @@
 
 <style lang="sass">
     @import url('https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:500')
+    @import /assets/variables
 
     \:root
-        background-color: #141414
+        background-color: $body-background
 
     body
         height: 100vh
@@ -185,15 +196,33 @@
     input:focus
         outline: white auto 5px
 
-    .search-box
-        width: calc(100% - 8px)
+    .search
         height: 2em
-        background: #333333
+        background: $search-background
         border: none
-        color: #eeeeee
-        padding: 4px
+        color: $search-text
+
+    .search-container
+        display: flex
+        flex-flow: row nowrap
+        justify-content: space-between
+        align-items: center
+
+    .search-box
+        width: 95%
+        height: 100%
+        padding: 0 4px
         &::placeholder
             font-style: italic
+
+    .clear-button
+        cursor: pointer
+        width: 32px
+        img
+            height: 28px
+            position: relative
+            top: 2px
+            left: 2px
 
     .icon-attribution
         color: white

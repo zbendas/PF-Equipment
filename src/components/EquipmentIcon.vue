@@ -1,5 +1,5 @@
 <template>
-    <div class="item_icon" v-bind:class="item_type">
+    <div class="item_icon" v-bind:class="item_type" @dragstart.prevent>
         <img v-if="item_type === 'Unarmed'" src="../assets/icons/fist.svg" alt="Unarmed"/>
         <img v-else-if="item_type === 'Light'"  src="../assets/icons/dagger.svg" alt="Light weapon"/>
         <img v-else-if="item_type === 'One-handed'" src="../assets/icons/swords.svg" alt="One-handed weapon"/>

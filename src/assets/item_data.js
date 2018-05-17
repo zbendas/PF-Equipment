@@ -17,7 +17,7 @@
  * @property {Array.<string>} [special] - Array containing special qualities of the weapon
  */
 
-export default [
+let ItemDataSet = [
     // ****
     // SIMPLE WEAPONS
     // ****
@@ -1020,4 +1020,6 @@ export default [
         "weight": 3,
         "damage_type": "B"
     },
-]
+];
+
+export default ItemDataSet;
