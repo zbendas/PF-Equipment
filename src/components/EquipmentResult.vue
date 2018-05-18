@@ -1,7 +1,7 @@
 <template>
     <div class="equipment_result"
          v-on:click="showItem"
-         v-show="isShown(item, search_text) && filtered"
+         v-show="is_result && filtered"
     >
         <div class="equipment_result_title">
             <div class="item_name"
@@ -31,7 +31,7 @@
             expanded: Boolean,
             filtered: Boolean,
             item: Object,
-            search_text: String
+            is_result: Boolean,
         },
         computed: {},
         data: function () {
@@ -41,15 +41,7 @@
             showItem: function () {
                 this.$emit('expand-equipment', this.item.name);
             },
-            isShown: function (item, search_text) {
-                let re = new RegExp(search_text, 'gi');
-                if (item.hasOwnProperty('alt_name')) {
-                    return (re.test(item.name) || re.test(item.alt_name))
-                }
-                else {
-                    return re.test(item.name)
-                }
-            },
+
         }
     }
 </script>

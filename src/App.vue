@@ -17,6 +17,7 @@
             </div>
         </form>
         <search-settings
+                v-show="resultsAvailable()"
                 v-bind:categories="categories"
                 v-on:apply-filter="setFilter"
                 v-on:clear-filters="clearFilter"
@@ -27,11 +28,17 @@
                 v-for="item in items" :key="item.name"
                 v-bind:item="item"
                 v-bind:search_text="search_text"
+                v-bind:is_result="isResult(item)"
                 v-bind:current_filter="current_filter"
                 v-bind:expanded="expanded_equipment[item.name]"
                 v-bind:filtered="isFiltered(item, current_filter)"
                 v-on:expand-equipment="(key) => { expanded_equipment[key] = !expanded_equipment[key] }"
         />
+        <div class="no-results"
+             v-show="!resultsAvailable()"
+        >
+            No results found.
+        </div>
     </div>
 </template>
 
@@ -103,6 +110,13 @@
                 });
                 return equipment_out;
             },
+            result_equipment_func: function (){
+                let equipment_out = {};
+                this.items.forEach((value) => {
+                    equipment_out[value.name] = false;
+                });
+                return equipment_out;
+            },
             item_categories: function () {
                 let item_array = [];
                 this.items.forEach((value) => {
@@ -119,6 +133,7 @@
             // the data version of expanded_equipment to be equal to the dynamically computed object
             this.expanded_equipment = this.expanded_equipment_func;
             this.filtered_equipment = this.filtered_equipment_func;
+            this.result_equipment = this.result_equipment_func;
             this.categories = this.categories_func;
         },
         data: function () {
@@ -137,6 +152,7 @@
                 ],
                 expanded_equipment: {},
                 filtered_equipment: {},
+                result_equipment: {},
                 /**
                  * @type Array.<ItemObject> items - Array of ItemObjects
                  */
@@ -148,6 +164,14 @@
             }
         },
         methods: {
+            resultsAvailable: function () {
+                for (let item in this.result_equipment) {
+                    if (this.result_equipment[item]) {
+                        return true;
+                    }
+                }
+                return false;
+            },
             clearFilter: function () {
                 for (let key in this.current_filter) {
                     this.current_filter[key] = [];
@@ -206,7 +230,18 @@
             },
             setFilter: function (category_key, checkedItems) {
                 this.current_filter[category_key] = checkedItems;
-            }
+            },
+            isResult: function (item) {
+                let re = new RegExp(this.search_text, 'gi');
+                if (item.hasOwnProperty('alt_name')) {
+                    this.result_equipment[item.name] = (re.test(item.name) || re.test(item.alt_name));
+                    return this.result_equipment[item.name];
+                }
+                else {
+                    this.result_equipment[item.name] = re.test(item.name);
+                    return this.result_equipment[item.name];
+                }
+            },
         }
     };
 </script>
@@ -267,6 +302,12 @@
             position: relative
             top: 4px
             left: 4px
+
+    .no-results
+        text-align: center
+        width: 100%
+        padding: 2% 0
+        font: normal 2em 'Montserrat', sans-serif
 
     .icon-attribution
         color: white
