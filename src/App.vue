@@ -29,6 +29,7 @@
                 v-bind:search_text="search_text"
                 v-bind:current_filter="current_filter"
                 v-bind:expanded="expanded_equipment[item.name]"
+                v-bind:filtered="isFiltered(item, current_filter)"
                 v-on:expand-equipment="(key) => { expanded_equipment[key] = !expanded_equipment[key] }"
         />
     </div>
@@ -95,6 +96,13 @@
                 });
                 return equipment_out;
             },
+            filtered_equipment_func: function () {
+                let equipment_out = {};
+                this.items.forEach((value) => {
+                    equipment_out[value.name] = false;
+                });
+                return equipment_out;
+            },
             item_categories: function () {
                 let item_array = [];
                 this.items.forEach((value) => {
@@ -110,7 +118,7 @@
             // After creation, both computed values and data values become available, so we can re-assign
             // the data version of expanded_equipment to be equal to the dynamically computed object
             this.expanded_equipment = this.expanded_equipment_func;
-            // TODO: Add sort function to alphabetically sort items
+            this.filtered_equipment = this.filtered_equipment_func;
             this.categories = this.categories_func;
         },
         data: function () {
@@ -128,6 +136,7 @@
                     "S",
                 ],
                 expanded_equipment: {},
+                filtered_equipment: {},
                 /**
                  * @type Array.<ItemObject> items - Array of ItemObjects
                  */
@@ -139,12 +148,6 @@
             }
         },
         methods: {
-            collapseAll: function () {
-                for (let key in this.expanded_equipment) {
-                    // noinspection JSUnfilteredForInLoop
-                    this.expanded_equipment[key] = false;
-                }
-            },
             clearFilter: function () {
                 for (let key in this.current_filter) {
                     this.current_filter[key] = [];
@@ -159,6 +162,47 @@
                         this.categories[index]["reset"] = false;
                     }
                 }
+            },
+            collapseAll: function () {
+                for (let key in this.expanded_equipment) {
+                    // noinspection JSUnfilteredForInLoop
+                    this.expanded_equipment[key] = false;
+                }
+            },
+            isFiltered: function (item, current_filter) {
+                let classification_flag = false, item_type_flag = false, damage_type_flag = false, range_flag = false;
+                if (current_filter["classification"].includes(item.classification) || current_filter["classification"].length === 0) {
+                    classification_flag = true;
+                }
+                if (current_filter["item_type"].includes(item.item_type) || current_filter["item_type"].length === 0) {
+                    item_type_flag = true;
+                }
+                if (current_filter["damage_type"].length === 0) {
+                    damage_type_flag = true;
+                }
+                else {
+                    current_filter["damage_type"].forEach((value) => {
+                        if (item.hasOwnProperty("damage_type")) {
+                            if (item.damage_type.includes(value)) {
+                                damage_type_flag = true;
+                            }
+                        }
+                    });
+                }
+                if (current_filter["range"].length === 0) {
+                    range_flag = true;
+                }
+                else {
+                    current_filter["range"].forEach((value) => {
+                        if (item.hasOwnProperty("range")) {
+                            if (item.range >= value) {
+                                range_flag = true;
+                            }
+                        }
+                    });
+                }
+                this.filtered_equipment[item.name] = classification_flag && item_type_flag && damage_type_flag && range_flag;
+                return this.filtered_equipment[item.name];
             },
             setFilter: function (category_key, checkedItems) {
                 this.current_filter[category_key] = checkedItems;

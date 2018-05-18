@@ -1,7 +1,7 @@
 <template>
     <div class="equipment_result"
          v-on:click="showItem"
-         v-show="isShown(item, search_text) && isFiltered(item, current_filter)"
+         v-show="isShown(item, search_text) && filtered"
     >
         <div class="equipment_result_title">
             <div class="item_name"
@@ -28,8 +28,8 @@
             EquipmentIcon
         },
         props: {
-            current_filter: Object,
             expanded: Boolean,
+            filtered: Boolean,
             item: Object,
             search_text: String
         },
@@ -50,41 +50,6 @@
                     return re.test(item.name)
                 }
             },
-            isFiltered: function (item, current_filter) {
-                let classification_flag = false, item_type_flag = false, damage_type_flag = false, range_flag = false;
-                // TODO: Expand this to allow for multiple classifications, such as for ammunition items (sling bullets, for example)
-                if (current_filter["classification"].includes(item.classification) || current_filter["classification"].length === 0) {
-                    classification_flag = true;
-                }
-                if (current_filter["item_type"].includes(item.item_type) || current_filter["item_type"].length === 0) {
-                    item_type_flag = true;
-                }
-                if (current_filter["damage_type"].length === 0) {
-                    damage_type_flag = true;
-                }
-                else {
-                    current_filter["damage_type"].forEach((value) => {
-                        if (item.hasOwnProperty("damage_type")) {
-                            if (item.damage_type.includes(value)) {
-                                damage_type_flag = true;
-                            }
-                        }
-                    });
-                }
-                if (current_filter["range"].length === 0) {
-                    range_flag = true;
-                }
-                else {
-                    current_filter["range"].forEach((value) => {
-                        if (item.hasOwnProperty("range")) {
-                            if (item.range >= value) {
-                                range_flag = true;
-                            }
-                        }
-                    });
-                }
-                return classification_flag && item_type_flag && damage_type_flag && range_flag;
-            }
         }
     }
 </script>
