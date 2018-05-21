@@ -1,31 +1,42 @@
 <template xmlns="http://www.w3.org/1999/html">
-    <div class="equipment_info" v-bind:class="item.item_type.toLowerCase()">
-        <div>
-            <span class="field_label">Type: </span><span class="field_datum">{{ item.item_type }}</span>
-            <span v-if="item.item_type !== 'Ammunition'"><span class="field_label">Cost: </span><span class="field_datum">{{ item.cost ? item.cost : "—" }}</span></span>
-            <span v-else><span class="field_label">Cost per {{item.amount}}: </span><span class="field_datum">{{item.cost ? item.cost : "—" }}</span></span>
-            <span class="field_label">Weight: </span>{{ computed_weight }}
+    <div class="wrapper" v-bind:class="item.item_type.toLowerCase()">
+        <div class="equipment_info">
+            <div>
+                <span class="field_label">Type: </span><span class="field_datum">{{ item.item_type }}</span>
+                <span v-if="item.item_type !== 'Ammunition'"><span class="field_label">Cost: </span>
+                    <span class="field_datum">{{ item.cost ? item.cost : "—" }}</span>
+                </span>
+                <span v-else><span class="field_label">Cost per {{item.amount}}: </span>
+                    <span class="field_datum">{{item.cost ? item.cost : "—" }}</span>
+                </span>
+                <span class="field_label">Weight: </span>{{ computed_weight }}
+            </div>
+            <div v-if="item.item_type !== 'Ammunition' && item.hasOwnProperty('amount')">
+                <span class="field_label">Amount: </span>{{ item.amount }}
+            </div>
+            <div v-if="item.item_type !== 'Ammunition'">
+                <span class="field_label">Damage: </span>
+                <span class="damage">{{ item.damage_small ? item.damage_small : "—" }}<sup title="Small">S</sup></span>
+                <span class="damage">{{ item.damage_medium ? item.damage_medium : "—" }}<sup title="Medium">M</sup></span>
+            </div>
+            <div v-if="item.item_type !== 'Ammunition'">
+                <span class="field_label">Critical: </span>{{ item.critical_range ? item.critical_range + "/" : "" }}
+                {{ item.critical_multiplier ? "×" + computed_critical : "—" }}
+            </div>
+            <div v-if="item.item_type !== 'Ammunition'">
+                <span class="field_label">Range: </span>{{ item.range ? item.range + " ft." : "—" }}
+            </div>
+            <div v-if="item.item_type !== 'Ammunition'">
+                <span class="field_label">Damage Type: </span>{{ item.damage_type ? item.damage_type : '—' }}
+            </div>
+            <div v-if="item.item_type !== 'Ammunition'">
+                <span class="field_label">Special: </span>{{ item.special ? item.special.join(', ') : "—" }}
+            </div>
         </div>
-        <div v-if="item.item_type !== 'Ammunition' && item.hasOwnProperty('amount')">
-            <span class="field_label">Amount: </span>{{ item.amount }}
-        </div>
-        <div v-if="item.item_type !== 'Ammunition'">
-            <span class="field_label">Damage: </span>
-            <span class="damage">{{ item.damage_small ? item.damage_small : "—" }}<sup title="Small">S</sup></span>
-            <span class="damage">{{ item.damage_medium ? item.damage_medium : "—" }}<sup title="Medium">M</sup></span>
-        </div>
-        <div v-if="item.item_type !== 'Ammunition'">
-            <span class="field_label">Critical: </span>{{ item.critical_range ? item.critical_range + "/" : "" }}{{ item.critical_multiplier ? "×" + computed_critical : "—" }}
-        </div>
-        <div v-if="item.item_type !== 'Ammunition'">
-            <span class="field_label">Range: </span>{{ item.range ? item.range + " ft." : "—" }}
-        </div>
-        <div v-if="item.item_type !== 'Ammunition'">
-            <span class="field_label">Damage Type: </span>{{ item.damage_type ? item.damage_type : '—' }}
-        </div>
-        <div v-if="item.item_type !== 'Ammunition'">
-            <span class="field_label">Special: </span>{{ item.special ? item.special.join(', ') : "—" }}
-        </div>
+        <div class="classification"
+             v-bind:class="item.item_type.toLowerCase()"
+             v-if="!(item.item_type === 'Ammunition')"
+        >{{ this.item["classification"] }}</div>
     </div>
 </template>
 
@@ -54,6 +65,24 @@
 <style scoped lang="sass">
     @import ../assets/variables
 
+    .wrapper
+        border-bottom: 3px solid darkgray
+        display: flex
+        flex-flow: row nowrap
+        justify-content: space-between
+        .classification.unarmed
+            color: darken($unarmed, 40%)
+        .classification.light
+            color: darken($light_melee, 40%)
+        .classification.one-handed
+            color: darken($one-handed, 40%)
+        .classification.two-handed
+            color: darken($two-handed, 40%)
+        .classification.ranged
+            color: darken($ranged, 40%)
+        .classification.ammunition
+            color: darken($ammunition, 40%)
+
     .equipment_info
         font-family: 'Lato', sans-serif
         font-weight: normal
@@ -62,7 +91,13 @@
         display: flex
         flex-flow: column nowrap
         justify-content: space-evenly
-        border-bottom: 3px solid darkgray
+        flex-basis: 90%
+
+    .classification
+        writing-mode: vertical-lr
+        text-align: center
+        flex-basis: 5.75%
+        text-transform: uppercase
 
     .field_label
         font-weight: bold
