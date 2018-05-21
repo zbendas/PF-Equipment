@@ -3,7 +3,7 @@
         <div class="equipment_info">
             <div>
                 <span class="field_label">Type: </span><span class="field_datum">{{ item.item_type }}</span>
-                <span v-if="item.item_type !== 'Ammunition'"><span class="field_label">Cost: </span>
+                <span v-if="!item.amount"><span class="field_label">Cost: </span>
                     <span class="field_datum">{{ item.cost ? item.cost : "—" }}</span>
                 </span>
                 <span v-else><span class="field_label">Cost per {{item.amount}}: </span>
