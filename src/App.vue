@@ -89,7 +89,9 @@
             classification_categories: function () {
                 let classification_array = [];
                 this.items.forEach((value) => {
-                    classification_array.push(value.classification);
+                    if (value.hasOwnProperty("classification")) {
+                        classification_array.push(value.classification);
+                    }
                 });
                 classification_array = classification_array.filter((item, index) => {
                     return classification_array.indexOf(item) === index;
@@ -110,7 +112,7 @@
                 });
                 return equipment_out;
             },
-            result_equipment_func: function (){
+            result_equipment_func: function () {
                 let equipment_out = {};
                 this.items.forEach((value) => {
                     equipment_out[value.name] = false;
@@ -195,7 +197,7 @@
             },
             isFiltered: function (item, current_filter) {
                 let classification_flag = false, item_type_flag = false, damage_type_flag = false, range_flag = false;
-                if (current_filter["classification"].includes(item.classification) || current_filter["classification"].length === 0) {
+                if (current_filter["classification"].includes(item.classification) || current_filter["classification"].length === 0 || item.item_type === "Ammunition") {
                     classification_flag = true;
                 }
                 if (current_filter["item_type"].includes(item.item_type) || current_filter["item_type"].length === 0) {

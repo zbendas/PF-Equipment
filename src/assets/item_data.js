@@ -1,16 +1,18 @@
 /**
- * An item object, containing various different properties
+ * An item object, containing various properties describing the weapon itself. Many of these properties are not
+ * required, so as to allow this particular object to be flexible.
+ * @summary Object describing an item.
  * @typedef {Object} ItemObject
  * @property {string} item_type - Item category
- * @property {string} classification - Simple, Martial, Exotic, etc.
+ * @property {string} [classification] - Simple, Martial, Exotic, etc; Optional where item_type = "Ammunition"
  * @property {string} name - Item name, as listed in PRD
  * @property {string} [alt_name] - Item name, alternate
  * @property {string} [cost] - Item cost, as listed
- * @property {string} [amount] - Amount per cost
+ * @property {number} [amount] - Amount per cost
  * @property {string} [damage_small] - Damage dealt when wielded by Small character
  * @property {string} [damage_medium] - Damage dealt when wielded by Medium character
  * @property {string} [critical_range] - Critical threat range
- * @property {number} [critical_multiplier] - Critical damage multiplier
+ * @property {number|Array.<number>} [critical_multiplier] - Critical damage multiplier
  * @property {number} [range] - Range of weapon, as a number. 'ft.' will be appended where appropriate.
  * @property {number|string} [weight] - Weight of weapon, as a number. 'lb.' or 'lbs.' will be appended where appropriate.
  * @property {string} [damage_type] - String describing the type of damage dealt
@@ -209,11 +211,10 @@ let CoreRulebookSet = [
     },
     {
         item_type: "Ammunition",
-        classification: "Simple",
         name: "Darts, blowgun",
         alt_name: "Blowgun darts",
         cost: "5 sp",
-        amount: "10"
+        amount: 10
     },
     {
         item_type: "Ranged",
@@ -231,11 +232,10 @@ let CoreRulebookSet = [
     },
     {
         item_type: "Ammunition",
-        classification: "Simple",
         name: "Bolts, crossbow",
         alt_name: "Crossbow bolts",
         cost: "1 gp",
-        amount: "10",
+        amount: 10,
         weight: 1
     },
     {
@@ -288,11 +288,10 @@ let CoreRulebookSet = [
     },
     {
         item_type: "Ammunition",
-        classification: "Simple",
         name: "Bullets, sling",
         alt_name: "Sling bullets",
         cost: "1 sp",
-        amount: "10",
+        amount: 10,
         weight: 5
     },
     // ****
@@ -701,10 +700,9 @@ let CoreRulebookSet = [
     },
     {
         item_type: "Ammunition",
-        classification: "Martial",
         name: "Arrows",
         cost: "1 gp",
-        amount: "20",
+        amount: 20,
         weight: 3
     },
     {
@@ -960,7 +958,6 @@ let CoreRulebookSet = [
     },
     {
         item_type: "Ammunition",
-        classification: "Exotic",
         name: "Bolts, repeating crossbow",
         alt_name: "Repeating crossbow bolts",
         cost: "1 gp",
@@ -1860,6 +1857,476 @@ let UltimateEquipmentSet = [
         weight: 2,
         damage_type: "P or S",
         special: ["deadly"]
+    },
+    // One-handed
+    {
+        item_type: "One-handed",
+        classification: "Exotic",
+        name: "Falcata",
+        cost: "18 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_range: "19-20",
+        critical_multiplier: 3,
+        weight: 4,
+        damage_type: "S"
+    },
+    {
+        item_type: "One-handed",
+        classification: "Exotic",
+        name: "Great terbutje",
+        cost: "12 gp",
+        damage_small: "1d8",
+        damage_medium: "1d10",
+        critical_range: "19-20",
+        critical_multiplier: 2,
+        weight: 4,
+        damage_type: "S",
+        special: ["fragile"]
+    },
+    {
+        item_type: "One-handed",
+        classification: "Exotic",
+        name: "Axe, hooked",
+        alt_name: "Hooked axe",
+        cost: "20 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_multiplier: 3,
+        weight: 7,
+        damage_type: "S",
+        special: ["disarm", "performance", "trip"]
+    },
+    {
+        item_type: "One-handed",
+        classification: "Exotic",
+        name: "Katana",
+        cost: "50 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_range: "18-20",
+        critical_multiplier: 2,
+        weight: 6,
+        damage_type: "S",
+        special: ["deadly"]
+    },
+    {
+        item_type: "One-handed",
+        classification: "Exotic",
+        name: "Kopesh",
+        cost: "20 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_range: "19-20",
+        critical_multiplier: 2,
+        weight: 8,
+        damage_type: "S",
+        special: ["trip"]
+    },
+    {
+        item_type: "One-handed",
+        classification: "Exotic",
+        name: "Nine-section whip",
+        cost: "20 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_range: "19-20",
+        critical_multiplier: 2,
+        weight: 3,
+        damage_type: "B",
+        special: ["blocking", "distracting", "monk", "trip"]
+    },
+    {
+        item_type: "One-handed",
+        classification: "Exotic",
+        name: "Rhoka sword",
+        alt_name: "Sword, rhoka",
+        cost: "25 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_range: "18-20",
+        critical_multiplier: 2,
+        weight: 6,
+        damage_type: "S"
+    },
+    {
+        item_type: "One-handed",
+        classification: "Exotic",
+        name: "Sawtooth sabre",
+        cost: "35 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_range: "19-20",
+        critical_multiplier: 2,
+        weight: 2,
+        damage_type: "S",
+    },
+    {
+        item_type: "One-handed",
+        classification: "Exotic",
+        name: "Shotel",
+        cost: "30 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_multiplier: 3,
+        weight: 3,
+        damage_type: "P",
+        special: ["performance"]
+    },
+    {
+        item_type: "One-handed",
+        classification: "Exotic",
+        name: "Taiaha",
+        cost: "10 gp",
+        damage_small: "1d8/1d4",
+        damage_medium: "1d10/1d6",
+        critical_multiplier: [2, 3],
+        weight: 8,
+        damage_type: "B or P",
+        special: ["double"]
+    },
+    {
+        item_type: "One-handed",
+        classification: "Exotic",
+        name: "Temple sword",
+        alt_name: "Sword, temple",
+        cost: "30 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_range: "19-20",
+        critical_multiplier: 2,
+        weight: 3,
+        damage_type: "S",
+        special: ["monk", "trip"]
+    },
+    {
+        item_type: "One-handed",
+        classification: "Exotic",
+        name: "Urumi",
+        cost: "30 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_range: "18-20",
+        critical_multiplier: 2,
+        weight: 6,
+        damage_type: "S",
+        special: ["distracting"]
+    },
+    {
+        item_type: "One-handed",
+        classification: "Exotic",
+        name: "Wahaika",
+        cost: "3 gp",
+        damage_small: "1d4",
+        damage_medium: "1d6",
+        critical_multiplier: 2,
+        range: 10,
+        weight: 3,
+        damage_type: "B",
+        special: ["disarm"]
+    },
+    // Two-handed
+    {
+        item_type: "Two-handed",
+        classification: "Exotic",
+        name: "Bo staff",
+        cost: "1 gp",
+        damage_small: "1d4",
+        damage_medium: "1d6",
+        critical_multiplier: 2,
+        weight: 3,
+        damage_type: "B",
+        special: ["blocking", "double", "monk"]
+    },
+    {
+        item_type: "Two-handed",
+        classification: "Exotic",
+        name: "Spear, chain",
+        alt_name: "Chain spear",
+        cost: "15 gp",
+        damage_small: "1d4/1d4",
+        damage_medium: "1d6/1d6",
+        critical_multiplier: 2,
+        weight: 13,
+        damage_type: "P and S",
+        special: ["trip"]
+    },
+    {
+        item_type: "Two-handed",
+        classification: "Exotic",
+        name: "Double walking stick katana",
+        alt_name: "Katana, double walking stick",
+        cost: "50 gp",
+        damage_small: "1d4/1d4",
+        damage_medium: "1d6/1d6",
+        critical_multiplier: 3,
+        weight: 6,
+        damage_type: "B",
+        special: ["double"]
+    },
+    {
+        item_type: "Two-handed",
+        classification: "Exotic",
+        name: "Double-chained kama",
+        alt_name: "Kama, double-chained",
+        cost: "8 gp",
+        damage_small: "1d4/1d4",
+        damage_medium: "1d6/1d6",
+        critical_multiplier: 2,
+        weight: 4,
+        damage_type: "S",
+        special: ["double", "monk", "reach", "trip"]
+    },
+    {
+        item_type: "Two-handed",
+        classification: "Exotic",
+        name: "Flying blade",
+        cost: "40 gp",
+        damage_small: "1d10",
+        damage_medium: "1d12",
+        critical_multiplier: 3,
+        weight: 12,
+        special: ["performance", "reach"]
+    },
+    {
+        item_type: "Two-handed",
+        classification: "Exotic",
+        name: "Harpoon",
+        cost: "5 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_multiplier: 3,
+        range: 10,
+        weight: 16,
+        damage_type: "P",
+        special: ["grapple", "see text"]
+    },
+    {
+        item_type: "Two-handed",
+        classification: "Exotic",
+        name: "Kusarigama",
+        cost: "12 gp",
+        damage_small: "1d2/1d4",
+        damage_medium: "1d3/1d6",
+        critical_multiplier: 2,
+        weight: 3,
+        damage_type: "S or B",
+        special: ["double", "grapple" , "monk", "reach", "trip"]
+    },
+    {
+        item_type: "Two-handed",
+        classification: "Exotic",
+        name: "Kyoketsu shoge",
+        cost: "6 gp",
+        damage_small: "1d3",
+        damage_medium: "1d4",
+        critical_multiplier: 2,
+        range: 20,
+        weight: 1,
+        damage_type: "S or P",
+        special: ["disarm", "grapple", "monk", "reach"]
+    },
+    {
+        item_type: "Two-handed",
+        classification: "Exotic",
+        name: "Mancatcher",
+        cost: "15 gp",
+        damage_small: "1",
+        damage_medium: "1d2",
+        weight: 10,
+        damage_type: "P",
+        special: ["reach", "see text"]
+    },
+    {
+        item_type: "Two-handed",
+        classification: "Exotic",
+        name: "Hammer, meteor",
+        alt_name: "Meteor hammer",
+        cost: "10 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_multiplier: 2,
+        weight: 10,
+        damage_type: "B",
+        special: ["reach", "trip"]
+    },
+    {
+        item_type: "Two-handed",
+        classification: "Exotic",
+        name: "Sword, seven-branched",
+        alt_name: "Seven-branced sword",
+        cost: "50 gp",
+        damage_small: "1d8",
+        damage_medium: "1d10",
+        critical_multiplier: 3,
+        weight: 7,
+        damage_type: "S",
+        special: ["disarm", "monk"]
+    },
+    {
+        item_type: "Two-handed",
+        classification: "Exotic",
+        name: "Tetsubo",
+        cost: "20 gp",
+        damage_small: "1d8",
+        damage_medium: "1d10",
+        critical_multiplier: 4,
+        weight: 10,
+        damage_type: "B",
+    },
+    // Ranged
+    {
+        item_type: "Ranged",
+        classification: "Exotic",
+        name: "Boomerang",
+        cost: "3 gp",
+        damage_small: "1d4",
+        damage_medium: "1d6",
+        critical_multiplier: 2,
+        range: 30,
+        weight: 3,
+        damage_type: "B",
+        special: ["see text"]
+    },
+    {
+        item_type: "Ranged",
+        classification: "Exotic",
+        name: "Crossbow, double",
+        alt_name: "Double crossbow",
+        cost: "300 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_range: "19-20",
+        critical_multiplier: 2,
+        range: 80,
+        weight: 18,
+        damage_type: "P",
+        special: ["see text"]
+    },
+    {
+        item_type: "Ranged",
+        classification: "Exotic",
+        name: "Kestros",
+        cost: "1 gp",
+        damage_small: "1d6",
+        damage_medium: "1d8",
+        critical_multiplier: 3,
+        range: 50,
+        weight: 1,
+        damage_type: "P"
+    },
+    {
+        item_type: "Ranged",
+        classification: "Exotic",
+        name: "Lasso",
+        cost: "1 sp",
+        weight: 5,
+        special: ["see text"]
+    },
+    {
+        item_type: "Ranged",
+        classification: "Exotic",
+        name: "Crossbow, repeating hand",
+        alt_name: "Repeating hand crossbow",
+        cost: "800 gp",
+        damage_small: "1d3",
+        damage_medium: "1d4",
+        critical_range: "19-20",
+        critical_multiplier: 2,
+        range: 30,
+        weight: 4,
+        damage_type: "P"
+    },
+    {
+        item_type: "Ranged",
+        classification: "Exotic",
+        name: "Rope dart",
+        alt_name: "Dart, rope",
+        cost: "1 gp",
+        damage_small: "1d3",
+        damage_medium: "1d4",
+        critical_multiplier: 2,
+        range: 20,
+        damage_type: "P",
+        special: ["blocking", "distracting", "monk"]
+    },
+    {
+        item_type: "Ranged",
+        classification: "Exotic",
+        name: "Net, snag",
+        alt_name: "Snag net",
+        cost: "30 gp",
+        range: 10,
+        weight: 10,
+        special: ["trip", "see text"]
+    },
+    {
+        item_type: "Ranged",
+        classification: "Exotic",
+        name: "Shield, throwing",
+        alt_name: "Throwing shield",
+        cost: "special",
+        damage_small: "1d4",
+        damage_medium: "1d6",
+        critical_multiplier: 2,
+        range: 20,
+        damage_type: "B",
+        special: ["performance", "trip"]
+    },
+    // Ammunition
+    {
+        item_type: "Ammunition",
+        name: "Dart, atlatl",
+        alt_name: "Atlatl dart",
+        cost: "1 gp",
+        weight: 2
+    },
+    {
+        item_type: "Ammunition",
+        name: "Arrows, bamboo shaft",
+        alt_name: "Bamboo shaft arrows",
+        amount: 10,
+        cost: "1 gp",
+        weight: 0.5
+    },
+    {
+        item_type: "Ammunition",
+        name: "Arrows, blunt",
+        alt_name: "Blunt arrows",
+        amount: 20,
+        cost: "2 gp",
+        weight: 3
+    },
+    {
+        item_type: "Ammunition",
+        name: "Arrows, flight",
+        alt_name: "Flight arrows",
+        amount: 20,
+        cost: "2 gp",
+        weight: 3
+    },
+    {
+        item_type: "Ammunition",
+        classification: "Exotic",
+        name: "Dart, kestros",
+        alt_name: "Kestros dart",
+        amount: 10,
+        cost: "5 gp",
+        weight: 5
+    },
+    {
+        item_type: "Ammunition",
+        name: "Arrow, smoke",
+        alt_name: "Smoke arrow",
+        cost: "10 gp",
+    },
+    {
+        item_type: "Ammunition",
+        name: "Arrows, whistling",
+        alt_name: "Whistling arrow",
+        amount: 20,
+        cost: "2 gp",
+        weight: 3
     }
 ];
 
