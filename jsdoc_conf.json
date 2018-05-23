@@ -1,0 +1,17 @@
+{
+  "opts": {
+    "destination": "./docs/"
+  },
+  "plugins": ["jsdoc-vue"],
+  "source": {
+    "include": [
+      "./src/App.vue",
+      "./src/components/",
+      "./src/assets/"
+    ],
+    "includePattern": "\\.(vue|js)$"
+  },
+  "templates": {
+    "cleverLinks": true
+  }
+}

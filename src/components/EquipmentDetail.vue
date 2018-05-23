@@ -41,6 +41,9 @@
 </template>
 
 <script>
+    /**
+     * @module EquipmentDetail
+     */
     export default {
         name: "equipment-detail",
         computed: {

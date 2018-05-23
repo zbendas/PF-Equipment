@@ -1,4 +1,7 @@
 function nameCompare(a, b) {
+    /**
+     * @todo Write documentation for this function
+     */
     if (a.name < b.name) {
         return -1;
     }
@@ -11,6 +14,9 @@ function nameCompare(a, b) {
 }
 
 function equipmentCompare(a, b) {
+    /**
+     * @todo Write documentation for this function
+     */
     if (!a.hasOwnProperty("item_type") || !b.hasOwnProperty("item_type")) {
         throw `{a} cannot be compared to {b}, as one of the two operands does not define property 'item_type'.`;
     }

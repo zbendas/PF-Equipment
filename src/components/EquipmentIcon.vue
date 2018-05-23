@@ -11,6 +11,9 @@
 </template>
 
 <script>
+    /**
+     * @module EquipmentIcon
+     */
     export default {
         name: "equipment-icon",
         props: {

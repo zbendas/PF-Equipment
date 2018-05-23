@@ -1,29 +1,57 @@
-<template>
-    <div class="app-body">
-        <form @submit.prevent>
-            <div class="search search-container">
-                <input class="search search-box" type="text" title="Search" aria-label="Search"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: App.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: App.vue</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;div class="app-body">
+        &lt;form @submit.prevent>
+            &lt;div class="search search-container">
+                &lt;input class="search search-box" type="text" title="Search" aria-label="Search"
                        placeholder="Search by typing here, e.g.: dagger, gauntlet, longspear"
                        v-model="search_text"
                        v-on:focus="collapseAll"
                 />
-                <div class="search clear-button" v-on:click="search_text = ''">
-                    <img src="./assets/icons/closed.svg"
+                &lt;div class="search clear-button" v-on:click="search_text = ''">
+                    &lt;img src="./assets/icons/closed.svg"
                          @dragstart.prevent
                          aria-label="Clear search field"
                          title="Clear"
                     />
-                </div>
-            </div>
-        </form>
-        <search-settings
+                &lt;/div>
+            &lt;/div>
+        &lt;/form>
+        &lt;search-settings
                 v-bind:categories="categories"
                 v-on:apply-filter="setFilter"
                 v-on:clear-filters="clearFilter"
                 v-on:reset-complete="clearResetFlags"
 
         />
-        <equipment-result
+        &lt;equipment-result
                 v-for="item in items" :key="item.name"
                 v-bind:item="item"
                 v-bind:search_text="search_text"
@@ -33,16 +61,16 @@
                 v-bind:filtered="isFiltered(item, current_filter)"
                 v-on:expand-equipment="(key) => { expanded_equipment[key] = !expanded_equipment[key] }"
         />
-        <div class="no-results"
+        &lt;div class="no-results"
              v-show="!resultsAvailable()"
         >
             No results found.
-        </div>
-    </div>
-</template>
+        &lt;/div>
+    &lt;/div>
+&lt;/template>
 
-<!--suppress JSUnusedGlobalSymbols -->
-<script>
+&lt;!--suppress JSUnusedGlobalSymbols -->
+&lt;script>
     /**
      * @module App
      */
@@ -130,7 +158,7 @@
                 /**
                  * @function expanded_equipment_func
                  * @desc Creates manager array for the expanded property on child [EquipmentResult]{@link module:EquipmentResult} components.
-                 * @return {Object<string, boolean>}
+                 * @return {Object&lt;string, boolean>}
                  * @instance
                  */
                 let equipment_out = {};
@@ -143,7 +171,7 @@
                 /**
                  * @function filtered_equipment_func
                  * @desc Creates manager array for the filtered property on child [EquipmentResult]{@link module:EquipmentResult} components.
-                 * @return {Object<string, boolean>}
+                 * @return {Object&lt;string, boolean>}
                  * @instance
                  */
                 let equipment_out = {};
@@ -156,7 +184,7 @@
                 /**
                  * @function result_equipment_func
                  * @desc Creates manager array for the is_result property on child [EquipmentResult]{@link module:EquipmentResult} components.
-                 * @return {Object<string, boolean>}
+                 * @return {Object&lt;string, boolean>}
                  * @instance
                  */
                 let equipment_out = {};
@@ -192,12 +220,13 @@
         },
         /**
          * @desc Vue component property used to provide read-write data mounted on the component.
+         * @member
          */
         data: function () {
             return {
                 categories: [],
                 /**
-                 * @type {Object<string, string[]>}
+                 * @type {Object&lt;string, string[]>}
                  * @desc Object containing the currently checked values of the checkboxes found in
                  * {@link SearchCategory} components.
                  * @instance
@@ -219,19 +248,19 @@
                     "S",
                 ],
                 /**
-                 * @type {Object<string, boolean>}
+                 * @type {Object&lt;string, boolean>}
                  * @desc Manager array used to determine whether or not a specific [EquipmentResult]{@link module:EquipmentResult} should be rendered as expanded.
                  * @instance
                  */
                 expanded_equipment: {},
                 /**
-                 * @type {Object<string, boolean>}
+                 * @type {Object&lt;string, boolean>}
                  * @desc Manager array used to determine whether or not a specific [EquipmentResult]{@link module:EquipmentResult} passes through the {@link current_filter}.
                  * @instance
                  */
                 filtered_equipment: {},
                 /**
-                 * @type {Object<string, boolean>}
+                 * @type {Object&lt;string, boolean>}
                  * @desc Manager array used to dictate whether or not a specific [EquipmentResult]{@link module:EquipmentResult} matches the {@link search_text} variable.
                  * @instance
                  */
@@ -268,7 +297,7 @@
                  * @return {boolean} Returns true if there is an [EquipmentResult]{@link module:EquipmentResult} component that should be displayed.
                  */
                 for (let item in this.result_equipment) {
-                    if (this.result_equipment[item] && this.filtered_equipment[item]) {
+                    if (this.result_equipment[item] &amp;&amp; this.filtered_equipment[item]) {
                         return true;
                     }
                 }
@@ -352,7 +381,7 @@
                         }
                     });
                 }
-                this.filtered_equipment[item.name] = classification_flag && item_type_flag && damage_type_flag && range_flag;
+                this.filtered_equipment[item.name] = classification_flag &amp;&amp; item_type_flag &amp;&amp; damage_type_flag &amp;&amp; range_flag;
                 return this.filtered_equipment[item.name];
             },
 
@@ -388,9 +417,9 @@
             },
         }
     };
-</script>
+&lt;/script>
 
-<style lang="sass">
+&lt;style lang="sass">
     @import url('https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:500')
     @import /assets/variables
 
@@ -435,7 +464,7 @@
         width: 95%
         height: 100%
         padding: 0 4px
-        &::placeholder
+        &amp;::placeholder
             font-style: italic
 
     .clear-button
@@ -461,4 +490,27 @@
         a
             text-decoration: none
             color: darken(white, 50%)
-</style>
+&lt;/style>
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-EquipmentDetail.html">EquipmentDetail</a></li><li><a href="module-EquipmentIcon.html">EquipmentIcon</a></li><li><a href="module-EquipmentResult.html">EquipmentResult</a></li><li><a href="module-ItemData.html">ItemData</a></li><li><a href="module-SearchCategory.html">SearchCategory</a></li><li><a href="module-SearchSettings.html">SearchSettings</a></li></ul><h3>Events</h3><ul><li><a href="module-EquipmentResult.html#event:expand-equipment">expand-equipment</a></li><li><a href="module-SearchCategory.html#event:prepared-filter">prepared-filter</a></li><li><a href="module-SearchCategory.html#event:reset-complete">reset-complete</a></li><li><a href="module-SearchSettings.html#event:apply-filter">apply-filter</a></li><li><a href="module-SearchSettings.html#event:reset-complete">reset-complete</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed May 23 2018 14:03:42 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

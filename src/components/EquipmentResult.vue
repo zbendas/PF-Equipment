@@ -18,6 +18,16 @@
 </template>
 
 <script>
+    /**
+     * @module EquipmentResult
+     * @desc A line-item component that displays the name of a given item and can be expanded to show the
+     * corresponding [EquipmentDetail]{@link module:EquipmentDetail} component. Also displays an
+     * [EquipmentIcon]{@link module:EquipmentIcon} on the right of the component.
+     */
+    /**
+     * @event module:EquipmentResult#expand-equipment
+     * @type {string}
+     */
     import EquipmentDetail from "./EquipmentDetail.vue";
     import EquipmentIcon from "./EquipmentIcon.vue";
 
@@ -39,6 +49,12 @@
         },
         methods: {
             showItem: function () {
+                /**
+                 * @desc Alerts the parent component that this object needs to be re-rendered as expanded.
+                 * @summary Fires event to expand component.
+                 * @function showItem
+                 * @fires module:EquipmentResult#expand-equipment
+                 */
                 this.$emit('expand-equipment', this.item.name);
             },
 

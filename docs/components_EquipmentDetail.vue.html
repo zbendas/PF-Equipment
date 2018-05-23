@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/EquipmentDetail.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/EquipmentDetail.vue</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template xmlns="http://www.w3.org/1999/html">
+    &lt;div class="wrapper" v-bind:class="item.item_type.toLowerCase()">
+        &lt;div class="equipment_info">
+            &lt;div>
+                &lt;span class="field_label">Type: &lt;/span>&lt;span class="field_datum">{{ item.item_type }}&lt;/span>
+                &lt;span v-if="!item.amount">&lt;span class="field_label">Cost: &lt;/span>
+                    &lt;span class="field_datum">{{ item.cost ? item.cost : "—" }}&lt;/span>
+                &lt;/span>
+                &lt;span v-else>&lt;span class="field_label">Cost per {{item.amount}}: &lt;/span>
+                    &lt;span class="field_datum">{{item.cost ? item.cost : "—" }}&lt;/span>
+                &lt;/span>
+                &lt;span class="field_label">Weight: &lt;/span>{{ computed_weight }}
+            &lt;/div>
+            &lt;div v-if="item.item_type !== 'Ammunition' &amp;&amp; item.hasOwnProperty('amount')">
+                &lt;span class="field_label">Amount: &lt;/span>{{ item.amount }}
+            &lt;/div>
+            &lt;div v-if="item.item_type !== 'Ammunition'">
+                &lt;span class="field_label">Damage: &lt;/span>
+                &lt;span class="damage">{{ item.damage_small ? item.damage_small : "—" }}&lt;sup title="Small">S&lt;/sup>&lt;/span>
+                &lt;span class="damage">{{ item.damage_medium ? item.damage_medium : "—" }}&lt;sup title="Medium">M&lt;/sup>&lt;/span>
+            &lt;/div>
+            &lt;div v-if="item.item_type !== 'Ammunition'">
+                &lt;span class="field_label">Critical: &lt;/span>{{ item.critical_range ? item.critical_range + "/" : "" }}
+                {{ item.critical_multiplier ? "×" + computed_critical : "—" }}
+            &lt;/div>
+            &lt;div v-if="item.item_type !== 'Ammunition'">
+                &lt;span class="field_label">Range: &lt;/span>{{ item.range ? item.range + " ft." : "—" }}
+            &lt;/div>
+            &lt;div v-if="item.item_type !== 'Ammunition'">
+                &lt;span class="field_label">Damage Type: &lt;/span>{{ item.damage_type ? item.damage_type : '—' }}
+            &lt;/div>
+            &lt;div v-if="item.item_type !== 'Ammunition'">
+                &lt;span class="field_label">Special: &lt;/span>{{ item.special ? item.special.join(', ') : "—" }}
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="classification"
+             v-bind:class="item.item_type.toLowerCase()"
+             v-if="!(item.item_type === 'Ammunition')"
+        >{{ this.item["classification"] }}&lt;/div>
+    &lt;/div>
+&lt;/template>
+
+&lt;script>
+    /**
+     * @module EquipmentDetail
+     */
+    export default {
+        name: "equipment-detail",
+        computed: {
+            computed_weight: function () {
+                let weight = this.item["weight"];
+                return weight === "special" ? weight : (weight ? (weight > 1 ? weight + " lbs." : weight + " lb.") : "—")
+            },
+            computed_critical: function () {
+
+                if (this.item["critical_multiplier"].constructor === Array) {
+                    return this.item["critical_multiplier"].join(' / ×');
+                }
+                return this.item["critical_multiplier"];
+            }
+        },
+        props: {
+            item: Object,
+        }
+    }
+&lt;/script>
+
+&lt;style scoped lang="sass">
+    @import ../assets/variables
+
+    .wrapper
+        border-bottom: 3px solid darkgray
+        display: flex
+        flex-flow: row nowrap
+        justify-content: space-between
+        .classification.unarmed
+            color: darken($unarmed, 40%)
+        .classification.light
+            color: darken($light_melee, 40%)
+        .classification.one-handed
+            color: darken($one-handed, 40%)
+        .classification.two-handed
+            color: darken($two-handed, 40%)
+        .classification.ranged
+            color: darken($ranged, 40%)
+        .classification.ammunition
+            color: darken($ammunition, 40%)
+
+    .equipment_info
+        font-family: 'Lato', sans-serif
+        font-weight: normal
+        font-size: 0.75em
+        padding: 1%
+        display: flex
+        flex-flow: column nowrap
+        justify-content: space-evenly
+        flex-basis: 90%
+
+    .classification
+        writing-mode: vertical-lr
+        text-align: center
+        flex-basis: 5.75%
+        text-transform: uppercase
+
+    .field_label
+        font-weight: bold
+
+    .field_datum
+        margin-right: 1.5vw
+
+    .damage
+        &amp; + .damage:before
+            opacity: 0.5
+            content: " / "
+            font-size: 1.25rem
+        sup
+            font-size: 0.75rem
+
+    .unarmed
+        background-color: $unarmed
+
+    .light
+        background-color: $light_melee
+
+    .one-handed
+        background-color: $one-handed
+
+    .two-handed
+        background-color: $two-handed
+
+    .ranged
+        background-color: $ranged
+
+    .ammunition
+        background-color: $ammunition
+&lt;/style></code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-EquipmentDetail.html">EquipmentDetail</a></li><li><a href="module-EquipmentIcon.html">EquipmentIcon</a></li><li><a href="module-EquipmentResult.html">EquipmentResult</a></li><li><a href="module-ItemData.html">ItemData</a></li><li><a href="module-SearchCategory.html">SearchCategory</a></li><li><a href="module-SearchSettings.html">SearchSettings</a></li></ul><h3>Events</h3><ul><li><a href="module-EquipmentResult.html#event:expand-equipment">expand-equipment</a></li><li><a href="module-SearchCategory.html#event:prepared-filter">prepared-filter</a></li><li><a href="module-SearchCategory.html#event:reset-complete">reset-complete</a></li><li><a href="module-SearchSettings.html#event:apply-filter">apply-filter</a></li><li><a href="module-SearchSettings.html#event:reset-complete">reset-complete</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed May 23 2018 14:03:42 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
