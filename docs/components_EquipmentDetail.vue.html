@@ -26,10 +26,10 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>&lt;template xmlns="http://www.w3.org/1999/html">
-    &lt;div class="wrapper" v-bind:class="item.item_type.toLowerCase()">
-        &lt;div class="equipment_info">
-            &lt;div>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;div class="detail_wrapper" v-bind:class="item.item_type.toLowerCase()">
+        &lt;div class="equipment_info wrapper">
+            &lt;div class="equipment_info row">
                 &lt;span class="field_label">Type: &lt;/span>&lt;span class="field_datum">{{ item.item_type }}&lt;/span>
                 &lt;span v-if="!item.amount">&lt;span class="field_label">Cost: &lt;/span>
                     &lt;span class="field_datum">{{ item.cost ? item.cost : "—" }}&lt;/span>
@@ -37,31 +37,23 @@
                 &lt;span v-else>&lt;span class="field_label">Cost per {{item.amount}}: &lt;/span>
                     &lt;span class="field_datum">{{item.cost ? item.cost : "—" }}&lt;/span>
                 &lt;/span>
-                &lt;span class="field_label">Weight: &lt;/span>{{ computed_weight }}
+                &lt;span class="field_label">Weight: &lt;/span>&lt;span class="field_datum">{{ computed_weight }}&lt;/span>
+                &lt;span v-if="item.item_type !== 'Ammunition' &amp;&amp; item.hasOwnProperty('amount')" class="field_label" >Amount: &lt;/span>&lt;span v-if="item.item_type !== 'Ammunition' &amp;&amp; item.hasOwnProperty('amount')" class="field_datum">{{ item.amount }}&lt;/span>
             &lt;/div>
-            &lt;div v-if="item.item_type !== 'Ammunition' &amp;&amp; item.hasOwnProperty('amount')">
-                &lt;span class="field_label">Amount: &lt;/span>{{ item.amount }}
-            &lt;/div>
-            &lt;div v-if="item.item_type !== 'Ammunition'">
+            &lt;div v-if="item.item_type !== 'Ammunition'" class="equipment_info row">
                 &lt;span class="field_label">Damage: &lt;/span>
                 &lt;span class="damage">{{ item.damage_small ? item.damage_small : "—" }}&lt;sup title="Small">S&lt;/sup>&lt;/span>
                 &lt;span class="damage">{{ item.damage_medium ? item.damage_medium : "—" }}&lt;sup title="Medium">M&lt;/sup>&lt;/span>
+                &lt;span class="field_label">Critical: &lt;/span>&lt;span class="field_datum">{{ item.critical_range ? item.critical_range + "/" : "" }}
+                {{ item.critical_multiplier ? "×" + computed_critical : "—" }}&lt;/span>
             &lt;/div>
-            &lt;div v-if="item.item_type !== 'Ammunition'">
-                &lt;span class="field_label">Critical: &lt;/span>{{ item.critical_range ? item.critical_range + "/" : "" }}
-                {{ item.critical_multiplier ? "×" + computed_critical : "—" }}
+            &lt;div v-if="item.item_type !== 'Ammunition'" class="equipment_info row">
+                &lt;span class="field_label">Range: &lt;/span>&lt;span class="field_datum">{{ item.range ? item.range + " ft." : "—" }}&lt;/span>
+                &lt;span class="field_label">Damage Type: &lt;/span>&lt;span class="field_datum">{{ item.damage_type ? item.damage_type : "—" }}&lt;/span>
+                &lt;span class="field_label">Special: &lt;/span>&lt;span class="field_datum">{{ item.special ? item.special.join(', ') : "—" }}&lt;/span>
             &lt;/div>
-            &lt;div v-if="item.item_type !== 'Ammunition'">
-                &lt;span class="field_label">Range: &lt;/span>{{ item.range ? item.range + " ft." : "—" }}
-            &lt;/div>
-            &lt;div v-if="item.item_type !== 'Ammunition'">
-                &lt;span class="field_label">Damage Type: &lt;/span>{{ item.damage_type ? item.damage_type : '—' }}
-            &lt;/div>
-            &lt;div v-if="item.item_type !== 'Ammunition'">
-                &lt;span class="field_label">Special: &lt;/span>{{ item.special ? item.special.join(', ') : "—" }}
-            &lt;/div>
+            &lt;div v-if="item.see_text" class="extra_description">{{ item.see_text }}&lt;/div>
         &lt;/div>
-        &lt;div class="extra_description">{{ item.see_text }}&lt;/div>
         &lt;!-- TODO Add @media queries that instead throw a button and pop-up in place of the text whenever the screen gets too small. Or maybe a link to the item in the PRD. -->
         &lt;div class="classification"
              v-bind:class="item.item_type.toLowerCase()"
@@ -98,7 +90,7 @@
 &lt;style scoped lang="sass">
     @import ../assets/variables
 
-    .wrapper
+    .detail_wrapper
         border-bottom: 3px solid darkgray
         display: flex
         flex-flow: row nowrap
@@ -106,32 +98,6 @@
         font-family: 'Lato', sans-serif
         font-weight: normal
         font-size: 0.75em
-        .classification.unarmed
-            color: darken($unarmed, 40%)
-        .classification.light
-            color: darken($light_melee, 40%)
-        .classification.one-handed
-            color: darken($one-handed, 40%)
-        .classification.two-handed
-            color: darken($two-handed, 40%)
-        .classification.ranged
-            color: darken($ranged, 40%)
-        .classification.ammunition
-            color: darken($ammunition, 40%)
-
-    .equipment_info
-        padding: 1%
-        display: flex
-        flex-flow: column nowrap
-        justify-content: space-evenly
-        flex-basis: 27.25%
-
-    .extra_description
-        flex-basis: 60%
-        font-size: 0.8em
-        align-self: center
-        padding: 2%
-
 
     .classification
         writing-mode: vertical-lr
@@ -139,6 +105,41 @@
         font-size: 1.5em
         flex-basis: 5.75%
         text-transform: uppercase
+        padding: 2% 0
+        &amp;.unarmed
+            color: darken($unarmed, 40%)
+            background: darken($unarmed, 10%)
+        &amp;.light
+            color: darken($light_melee, 40%)
+            background: darken($light_melee, 10%)
+        &amp;.one-handed
+            color: darken($one-handed, 40%)
+            background: darken($one-handed, 10%)
+        &amp;.two-handed
+            color: darken($two-handed, 40%)
+            background: darken($two-handed, 10%)
+        &amp;.ranged
+            color: darken($ranged, 40%)
+            background: darken($ranged, 10%)
+        &amp;.ammunition
+            color: darken($ammunition, 40%)
+            background: darken($ammunition, 10%)
+
+    .equipment_info
+        &amp;.wrapper
+            padding: 1%
+            display: flex
+            flex-flow: column nowrap
+            justify-content: flex-start
+            flex-basis: 95%
+        &amp;.row
+            margin: 1% 0
+
+    .extra_description
+        font-size: 0.8em
+        align-self: center
+        padding: 2%
+        text-align: center
 
     .field_label
         font-weight: bold
@@ -187,7 +188,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed May 23 2018 20:06:27 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu May 24 2018 09:38:00 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
