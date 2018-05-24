@@ -25,7 +25,7 @@
 <style scoped lang="sass">
     .item_icon
         user-select: none
-        width: 1.5em
+        width: 5.75%
         display: flex
         justify-content: center
         align-items: center
