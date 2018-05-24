@@ -24,6 +24,7 @@
  * @property {string} [damage_type] - String describing the type of damage dealt.
  * Should follow Pathfinder's standard triad of "B", "P", "S", or combinations thereof
  * @property {string[]} [special] - Array containing any special qualities of the weapon
+ * @property {string} [see_text] - If the {@link ItemObject.special} property contains "see text", this must be provided. This will store the specific extra gameplay information about the item.
  */
 
 /**
@@ -1052,8 +1053,8 @@ let UltimateEquipmentSet = [
         critical_multiplier: 2,
         weight: 4,
         damage_type: "B",
-        special: ["see text"]
-        // TODO: Add description field so that 'see text' doesn't suck so much
+        special: ["see text"],
+        see_text: "Named for the common aspergillum, a macelike tool used by priests to sprinkle holy water, this light mace has a hollow head and a metal plug closing off the hole through which the head is filled. When the mace strikes a creature, holy water sprinkles out through tiny holes throughout the weapon’s head; creatures subject to damage from holy water take 1 point of damage in addition to the normal effect of being struck by the mace (a nonmagical aspergillum can deal holy water damage to an incorporeal creature in this manner, even if the mace itself deals no damage). After 5 hits, the battle aspergillum is empty and needs to be refilled. Filling it with holy water is a standard action that provokes attacks of opportunity (like drinking a potion). A filled aspergillum is normally carried upright, to prevent the holy water from leaking out as the weapon moves."
     },
     {
         item_type: "Light",
@@ -1065,7 +1066,8 @@ let UltimateEquipmentSet = [
         critical_multiplier: 2,
         weight: 1,
         damage_type: "B",
-        special: ["monk", "see text"]
+        special: ["monk", "see text"],
+        see_text: "These weapons fit snugly around the knuckles and allow you to deal lethal damage with an unarmed strike. You may hold, but not wield, a weapon or other object in a hand wearing brass knuckles. You may cast a spell with a somatic component while wearing brass knuckles if you make a successful concentration check (DC 10 + the level of the spell you’re casting). Monks are proficient with brass knuckles. Brass knuckles can’t be disarmed."
     },
     {
         item_type: "Light",
@@ -1078,7 +1080,8 @@ let UltimateEquipmentSet = [
         critical_multiplier: 2,
         weight: 1,
         damage_type: "B or P",
-        special: ["monk", "see text"]
+        special: ["monk", "see text"],
+        see_text: "The cestus is a glove of leather or thick cloth that covers the wielder from mid-finger to mid-forearm. The close combat weapon is reinforced with metal plates over the fingers and often lined with wicked spikes along the backs of the hands and wrists. While wearing a cestus, you are considered armed and your unarmed attacks deal lethal damage. If you are proficient with a cestus, you can have your unarmed strikes deal bludgeoning or piercing damage. Monks are proficient with the cestus. When using a cestus, your fingers are mostly exposed, allowing you to wield or carry items in that hand, but the constriction of the weapon at your knuckles gives you a –2 penalty on all precision-based tasks involving that hand (such as opening locks). A cestus can’t be disarmed."
     },
     {
         item_type: "Light",
@@ -1137,7 +1140,8 @@ let UltimateEquipmentSet = [
         critical_multiplier: 2,
         weight: 8,
         damage_type: "P",
-        special: ["brace", "see text"]
+        special: ["brace", "see text"],
+        see_text: "This spear has a metal crossbar to protect you against onrushing attackers. If you ready a boar spear against a charge and your attack hits, you gain a +2 shield bonus to your AC against that creature until your next turn."
     },
     // Ranged
     {
@@ -1316,7 +1320,8 @@ let UltimateEquipmentSet = [
         critical_multiplier: 2,
         weight: 6,
         damage_type: "S",
-        special: ["see text"]
+        special: ["see text"],
+        see_text: "The traditional form of this tribal weapon is a short metal blade bound to the skull of a large horned lizard, but a skilled smith can craft one entirely out of metal. A traditional klar counts as a light wooden shield with shield spikes; a metal klar counts as a light steel shield with shield spikes."
     },
     {
         item_type: "One-handed",
@@ -1391,7 +1396,8 @@ let UltimateEquipmentSet = [
         critical_multiplier: "2",
         weight: 14,
         damage_type: "S",
-        special: ["brace", "reach", "see text"]
+        special: ["brace", "reach", "see text"],
+        see_text: "The crescent axe-blade of this polearm is attached to the haft at two points: the center of the blade attaches to a socket at the top of the haft, and the lower point of the blade attaches to a secondary mount point. The blade is often very long, sometimes almost as long as the haft. You gain a +2 bonus to your CMD to resist sunder attempts made against a bardiche. BASTARD SWORD"
     },
     {
         item_type: "Two-handed",
@@ -1403,7 +1409,8 @@ let UltimateEquipmentSet = [
         critical_multiplier: 3,
         weight: 12,
         damage_type: "B or P",
-        special: ["brace", "reach", "see text"]
+        special: ["brace", "reach", "see text"],
+        see_text: "The bec de corbin is a polearm very similar to the lucerne hammer, but the hammer head is slightly blunter and the spike is stouter and more hooked. You primarily attack with the spike. You gain a +2 bonus on combat maneuver checks to sunder medium or heavy armor with a bec de corbin."
     },
     {
         item_type: "Two-handed",
@@ -1415,7 +1422,8 @@ let UltimateEquipmentSet = [
         critical_multiplier: 3,
         weight: 11,
         damage_type: "S",
-        special: ["brace", "disarm", "reach", "see text"]
+        special: ["brace", "disarm", "reach", "see text"],
+        see_text: "The blade of this polearm is a curved or hooked chopping blade with a spiked projection on the back of the blade. The spike is commonly used to block and parry. When fighting defensively or with total defense, this weapon gives you a +1 shield bonus to AC. A mounted opponent hit by a bill takes a –1 penalty on his Ride check to stay mounted."
     },
     {
         item_type: "Two-handed",
@@ -1438,7 +1446,8 @@ let UltimateEquipmentSet = [
         critical_multiplier: 3,
         weight: 10,
         damage_type: "S",
-        special: ["brace", "reach", "see text"]
+        special: ["brace", "reach", "see text"],
+        see_text: "This polearm combines the blade of a glaive with a wicked hook. A mounted opponent hit by a glaive-guisarme takes a –2 penalty on her Ride check to stay mounted."
     },
     {
         item_type: "Two-handed",
@@ -1476,7 +1485,8 @@ let UltimateEquipmentSet = [
         critical_multiplier: 2,
         weight: 12,
         damage_type: "B or P",
-        special: ["brace", "reach", "see text"]
+        special: ["brace", "reach", "see text"],
+        see_text: "This polearm has both a pronged hammer head for crushing blows and a spiked head for piercing and peeling armor. The long haft allows the wielder to put amazing force behind the head of this weapon. You gain a +2 bonus on combat maneuver checks to sunder medium or heavy armor with a lucerne hammer."
     },
     {
         item_type: "Two-handed",
@@ -1661,7 +1671,8 @@ let UltimateEquipmentSet = [
         range: 20,
         weight: 4,
         damage_type: "P",
-        special: ["see text"]
+        special: ["see text"],
+        see_text: "The tip of this heavy javelin is designed to break off and embed itself into a shield once it hits. Like ammunition, a thrown pilum that hits its target is destroyed. If you hit a shieldbearing opponent with a pilum, he loses the AC bonuses from that shield until he takes a standard action to pry the remnants of the pilum from his shield."
     },
     {
         item_type: "Ranged",
@@ -1671,7 +1682,8 @@ let UltimateEquipmentSet = [
         damage_small: "special",
         damage_medium: "special",
         weight: 1,
-        special: ["see text"]
+        special: ["see text"],
+        see_text: "Resembling a slim scroll case made of bamboo or metal, this tube is filled with fine sand that is soaked or coated with inhaled or contact poison. When loaded with 3 doses of these types of poison, you can blow into the tube to disperse the poisoned sand into your enemies’ faces in a 15-foot cone. Each creature in the cone is affected as if afflicted with 1 dose of the poison. Even when loaded with unpoisoned sand, the tube lets loose a powerful irritant, and an opponent struck must succeed at a DC 12 Fortitude saving throw or be dazzled for 1 round. Once expended, the tube must be repacked before it can be used again. Repacking a tube requires a full-round action, or a standard action if you have the Rapid Reload feat."
     },
     {
         item_type: "Ranged",
@@ -1713,7 +1725,8 @@ let UltimateEquipmentSet = [
         critical_multiplier: 2,
         range: 10,
         damage_type: "B",
-        special: ["blocking", "monk", "see text"]
+        special: ["blocking", "monk", "see text"],
+        see_text: "These short, blunt sticks are held in the hands to enhance unarmed martial techniques and secured by a cord looped over the thumb. They provide the wielder with the ability to lock an opponent and target pressure points, granting you a +2 bonus on combat maneuver checks to grapple."
     },
     {
         item_type: "Light",
@@ -1725,7 +1738,8 @@ let UltimateEquipmentSet = [
         critical_range: "19-20",
         critical_multiplier: 2,
         damage_type: "P",
-        special: ["see text"]
+        special: ["see text"],
+        see_text: "This weapon is used to augment unarmed martial techniques. It consists of an 8- to 10-inch-long, dual-pointed steel spike set on swivels and mounted on a ring, so that it can be spun around at high speeds when slipped over the wielder’s ring finger. The ring prevents the wielder from being disarmed and turns unarmed strikes into piercing attacks."
     },
     {
         item_type: "Light",
@@ -1849,18 +1863,21 @@ let UltimateEquipmentSet = [
         critical_multiplier: 2,
         weight: 3,
         damage_type: "S",
-        special: ["disarm", "see text"]
+        special: ["disarm", "see text"],
+        see_text: "You can use this dagger to disarm or sunder enemy blades by catching them in the grooves on the back of the blade and using your weapon as a lever. If you are proficient with this weapon, add a +4 bonus on combat maneuver checks to disarm or sunder bladed weapons while using it."
     },
     {
         item_type: "Light",
         classification: "Exotic",
         name: "Tekko-kagi",
+        alt_name: "Iron claw",
         cost: "2 gp",
         damage_small: "1d2",
         damage_medium: "1d3",
         critical_multiplier: 2,
         damage_type: "P",
-        special: ["disarm", "see text"]
+        special: ["disarm", "see text"],
+        see_text: "Also known as an iron claw, this device consists of a fanlike structure of three or more 10-inch blades secured to a sturdy handle strapped to the forearm of the off hand. It can be used as an offensive weapon or defensively like a buckler, or used to disarm an opponent without provoking an attack of opportunity. It provides its owner with a +2 circumstance bonus on attempts to disarm or sunder swords or other slender-bladed weapons."
     },
     {
         item_type: "Light",
@@ -2116,7 +2133,8 @@ let UltimateEquipmentSet = [
         range: 10,
         weight: 16,
         damage_type: "P",
-        special: ["grapple", "see text"]
+        special: ["grapple", "see text"],
+        see_text: "A harpoon is a barbed spear with an attached rope 50 feet or less in length. Most harpoons have metal points, but some use ivory or are made entirely of wood. If you are proficient with the harpoon, it is a grappling weapon. A harpoon’s weight includes 10 pounds for the weight of 50 feet of hemp rope. The weight can be reduced by using shorter or lighter rope. If you are not proficient with a harpoon, treat it like a spear."
     },
     {
         item_type: "Two-handed",
@@ -2152,7 +2170,8 @@ let UltimateEquipmentSet = [
         damage_medium: "1d2",
         weight: 10,
         damage_type: "P",
-        special: ["reach", "see text"]
+        special: ["reach", "see text"],
+        see_text: "This polearm consists of two curved metal bands that close around a target when you attack, allowing you to bind an opponent. A mancatcher is built to capture a creature of a particular size category (such as Small or Medium) and doesn’t work on creatures of the wrong size. Make a touch attack to hit an opponent and a combat maneuver check to grapple him (without the –4 penalty for not having two hands free); success means you and the target are grappled. Once the target is grappled, you can perform a move or damage grapple action against him. The mancatcher has hardness 10 and 5 hit points; breaking it requires a DC 26 Strength check. If you drop the mancatcher, the target can free himself as a standard action."
     },
     {
         item_type: "Two-handed",
@@ -2203,7 +2222,8 @@ let UltimateEquipmentSet = [
         range: 30,
         weight: 3,
         damage_type: "B",
-        special: ["see text"]
+        special: ["see text"],
+        see_text: "The boomerang is primarily a hunting tool, but it is not uncommon for these versatile thrown weapons to be carried into battle. A boomerang is made of wood and is flat, with a long haft, a pronounced forward curve, and a sharp backward bend at the head. A hunting boomerang does not fly in a returning path."
     },
     {
         item_type: "Ranged",
@@ -2218,7 +2238,8 @@ let UltimateEquipmentSet = [
         range: 80,
         weight: 18,
         damage_type: "P",
-        special: ["see text"]
+        special: ["see text"],
+        see_text: "This heavy weapon fires a pair of iron-tipped bolts with a single squeeze of the trigger. Because of its size and weight, you take a –4 penalty on your attack roll if you’re proficient with it, or –8 if you’re not. If the attack hits, the target takes damage from both bolts. Critical hits, sneak attack damage, and other precision-based damage apply to only the first bolt. Reloading one bolt is a standard action; the Rapid Reload feat reduces this to a move action. Crossbow Mastery (Advanced Player’s Guide) allows you to reload both bolts as a move action. A double crossbow fires crossbow bolts."
     },
     {
         item_type: "Ranged",
@@ -2238,7 +2259,8 @@ let UltimateEquipmentSet = [
         name: "Lasso",
         cost: "1 sp",
         weight: 5,
-        special: ["see text"]
+        special: ["see text"],
+        see_text: "This thrown weapon is a length of rope with a simple open knot on one end that allows you to entangle a foe like you would using a net. The DC to cast a spell while entangled with a lasso is 10 + the spell level being cast. An entangled creature can slip free with a successful DC 15 Escape Artist check as a full-round action. The lasso has 2 hit points and AC 10, and requires a DC 23 Strength check to break. On a successful hit, the lasso tightens; to use it again you must spend a standard action sliding the knot to enlarge the loop."
     },
     {
         item_type: "Ranged",
@@ -2275,7 +2297,8 @@ let UltimateEquipmentSet = [
         cost: "30 gp",
         range: 10,
         weight: 10,
-        special: ["trip", "see text"]
+        special: ["trip", "see text"],
+        see_text: "This short, wide net is covered in barbed loops and slipknots. It works like a typical net, except it has the trip weapon special feature. If you entangle an opponent and hold the trailing rope, on your turn in place of a melee attack you may make a combat maneuver check to trip against that opponent; if you succeed, you may trip your opponent or deal 1 point of piercing damage to it. The concentration DC to cast while entangled in a snag net is 17 + the spell’s level. The Escape Artist DC to escape a snag net is 22."
     },
     {
         item_type: "Ranged",

@@ -33,6 +33,8 @@
                 <span class="field_label">Special: </span>{{ item.special ? item.special.join(', ') : "—" }}
             </div>
         </div>
+        <div class="extra_description">{{ item.see_text }}</div>
+        <!-- TODO Add @media queries that instead throw a button and pop-up in place of the text whenever the screen gets too small. Or maybe a link to the item in the PRD. -->
         <div class="classification"
              v-bind:class="item.item_type.toLowerCase()"
              v-if="!(item.item_type === 'Ammunition')"
@@ -73,6 +75,9 @@
         display: flex
         flex-flow: row nowrap
         justify-content: space-between
+        font-family: 'Lato', sans-serif
+        font-weight: normal
+        font-size: 0.75em
         .classification.unarmed
             color: darken($unarmed, 40%)
         .classification.light
@@ -87,18 +92,23 @@
             color: darken($ammunition, 40%)
 
     .equipment_info
-        font-family: 'Lato', sans-serif
-        font-weight: normal
-        font-size: 0.75em
         padding: 1%
         display: flex
         flex-flow: column nowrap
         justify-content: space-evenly
-        flex-basis: 90%
+        flex-basis: 27.25%
+
+    .extra_description
+        flex-basis: 60%
+        font-size: 0.8em
+        align-self: center
+        padding: 2%
+
 
     .classification
         writing-mode: vertical-lr
         text-align: center
+        font-size: 1.5em
         flex-basis: 5.75%
         text-transform: uppercase
 
