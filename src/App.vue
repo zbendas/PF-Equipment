@@ -401,6 +401,7 @@
         height: 100vh
         display: flex
         flex-direction: column
+        margin: 0
 
     #app
         width: 100vw
@@ -409,12 +410,15 @@
     .app-body
         flex: 1 0 auto
         min-height: 20vh
-        width: 60vw
         background-color: white
-        margin: 5vh 20vw
         box-shadow: 25px 25px 19px -1px rgba(0, 0, 0, 0.5)
         -webkit-box-shadow: 25px 25px 19px -1px rgba(0, 0, 0, 05)
         -moz-box-shadow: 25px 25px 19px -1px rgba(0, 0, 0, 0.5)
+        @media only screen and (max-width: 768px)
+            width: 98vw
+            margin: 5vh 1vw
+        width: 80vw
+        margin: 5vh 10vw
 
     input:focus
         outline: white auto 5px

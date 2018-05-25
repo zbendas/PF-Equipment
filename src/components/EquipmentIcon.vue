@@ -25,10 +25,13 @@
 <style scoped lang="sass">
     .item_icon
         user-select: none
-        width: 5.75%
+        min-width: 28px
         display: flex
         justify-content: center
         align-items: center
+        @media only screen and (min-width: 768px)
+            width: 5.75%
+        width: 7%
     img
         height: 28px
 </style>
